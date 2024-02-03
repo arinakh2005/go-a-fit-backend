@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Athlete } from './athlete.entity';
 import { Coach } from './coach.entity';
@@ -7,6 +7,9 @@ import { Schedule } from './schedule.entity';
 
 @Entity()
 export class Group extends BaseEntity {
+  @Column({ name: 'name', type: 'varchar', length: 100 })
+  public name: string;
+
   @ManyToMany(() => Athlete, (athlete) => athlete.groups)
   public athletes: Athlete[];
 

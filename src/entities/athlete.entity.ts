@@ -1,4 +1,4 @@
-import { Entity, ManyToMany, OneToMany } from 'typeorm';
+import { Entity, JoinColumn, ManyToMany, OneToMany } from 'typeorm';
 import { TrainingPackage } from './training-package.entity';
 import { Training } from './training.entity';
 import { User } from './user.entity';
@@ -10,6 +10,7 @@ export class Athlete extends User {
   public trainingPackages: TrainingPackage[];
 
   @ManyToMany(() => Group, (group) => group.athletes)
+  @JoinColumn({ name: 'group_id' })
   public groups: Group[];
 
   @ManyToMany(() => Training, (training) => training.attendantAthletes)

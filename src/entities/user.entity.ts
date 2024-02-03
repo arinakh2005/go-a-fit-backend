@@ -11,7 +11,7 @@ export abstract class User extends BaseEntity {
   @Column({ name: 'surname', type: 'varchar', length: 50 })
   public surname: string;
 
-  @Column({ name: 'patronymic', type: 'varchar', length: 50 })
+  @Column({ name: 'patronymic', type: 'varchar', length: 50, nullable: true })
   public patronymic: string;
 
   @Column({ name: 'date_of_birth', type: 'date' })
