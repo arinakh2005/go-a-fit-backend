@@ -3,7 +3,7 @@ import { BaseEntity } from './base.entity';
 import { FitProductAvailability } from '../enums/fit-product-availability.enum';
 import { FitOrder } from './fit-order.entity';
 
-@Entity()
+@Entity({ name: 'fit-products' })
 export class FitProduct extends BaseEntity {
   @Column({ name: 'label', type: 'varchar', length: 100 })
   public label: string;
@@ -14,10 +14,10 @@ export class FitProduct extends BaseEntity {
   @Column({ name: 'availability', type: 'enum', enum: FitProductAvailability, default: FitProductAvailability.InStock })
   public availabilityStatus: FitProductAvailability;
 
-  @Column({ name: 'quantity', type: 'number', default: 0 })
+  @Column({ name: 'quantity', type: 'int', default: 0 })
   public quantity: number;
 
-  @Column({ name: 'cost', type: 'number', default: 0 })
+  @Column({ name: 'cost', type: 'int', default: 0 })
   public cost: number;
 
   @ManyToMany(() => FitOrder, (fitOrder) => fitOrder.fitProducts)

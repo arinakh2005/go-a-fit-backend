@@ -11,37 +11,36 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`CREATE TYPE "public"."training_status_enum" AS ENUM('Planned', 'Completed', 'Cancelled')`);
         await queryRunner.query(`CREATE TYPE "public"."weekday_enum" AS ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')`);
         await queryRunner.query(`
+            CREATE TABLE "users" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+                                  "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
+                                  "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
+                                  "deleted_at" TIMESTAMP, 
+                                  "name" character varying(50) NOT NULL,
+                                  "surname" character varying(50) NOT NULL,
+                                  "patronymic" character varying(50),
+                                  "date_of_birth" DATE NOT NULL, 
+                                  "email" character varying(100) NOT NULL, 
+                                  "username" character varying(50) NOT NULL,
+                                  "password" character varying(50) NOT NULL,
+                                  "image_url" character varying,
+                                  "group_id" uuid,
+                                  "system_role" "public"."system_role_enum" NOT NULL DEFAULT 'Athlete',
+                                  "fit_cent_amount" integer DEFAULT 0,
+                                  CONSTRAINT "PK_USER_01" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`
             CREATE TABLE "athletes" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                                      "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                      "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                      "deleted_at" TIMESTAMP, 
-                                     "name" character varying(50) NOT NULL,
-                                     "surname" character varying(50) NOT NULL,
-                                     "patronymic" character varying(50),
-                                     "date_of_birth" DATE NOT NULL, 
-                                     "email" character varying(100) NOT NULL, 
-                                     "username" character varying(50) NOT NULL,
-                                     "password" character varying(50) NOT NULL,
-                                     "image_url" character varying,
                                      "group_id" uuid,
-                                     "system_role" "public"."system_role_enum" NOT NULL DEFAULT 'Athlete',
-                                     "fit_cent_amount" integer DEFAULT 0,
+                                     "user_id" uuid,
                                      CONSTRAINT "PK_ATHLETE_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
             CREATE TABLE "coaches" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                                     "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                     "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                     "deleted_at" TIMESTAMP, 
-                                    "name" character varying(50) NOT NULL,
-                                    "surname" character varying(50) NOT NULL,
-                                    "patronymic" character varying(50),
-                                    "date_of_birth" DATE NOT NULL, 
-                                    "email" character varying(100) NOT NULL, 
-                                    "username" character varying(50) NOT NULL,
-                                    "password" character varying(50) NOT NULL,
-                                    "image_url" character varying,
-                                    "system_role" "public"."system_role_enum" NOT NULL DEFAULT 'Coach',
-                                    "fit_cent_amount" integer DEFAULT 0,
+                                    "user_id" uuid,
                                     CONSTRAINT "PK_COACHES_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
             CREATE TABLE "fit-orders" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -112,11 +111,11 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                               CONSTRAINT "PK_TRAINING_PACKAGES_01" PRIMARY KEY ("id"))`);
 
         await queryRunner.query(`ALTER TABLE "athletes" ADD CONSTRAINT "FK_ATHLETES-GROUPS_01" FOREIGN KEY ("group_id") REFERENCES "groups"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "fit-orders" ADD CONSTRAINT "FK_FIT_ORDERS-ATHLETES_01" FOREIGN KEY ("user_id") REFERENCES "athletes"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "fit-orders" ADD CONSTRAINT "FK_FIT_ORDERS-COACHES_01" FOREIGN KEY ("user_id") REFERENCES "coaches"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "athletes" ADD CONSTRAINT "FK_ATHLETES-USERS_01" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "coaches" ADD CONSTRAINT "FK_COACHES-USERS_01" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "fit-orders" ADD CONSTRAINT "FK_FIT_ORDERS-USERS_01" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "groups" ADD CONSTRAINT "FK_GROUPS-COACHES_01" FOREIGN KEY ("coach_id") REFERENCES "coaches"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "notifications" ADD CONSTRAINT "FK_NOTIFICATIONS-ATHLETES_01" FOREIGN KEY ("recipient_id") REFERENCES "athletes"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "notifications" ADD CONSTRAINT "FK_NOTIFICATIONS-COACHES_01" FOREIGN KEY ("recipient_id") REFERENCES "coaches"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "notifications" ADD CONSTRAINT "FK_NOTIFICATIONS-USERS_01" FOREIGN KEY ("recipient_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "schedule" ADD CONSTRAINT "FK_SCHEDULE-GROUPS_01" FOREIGN KEY ("group_id") REFERENCES "groups"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "trainings" ADD CONSTRAINT "FK_TRAININGS-COACHES_01" FOREIGN KEY ("conducted_coach_id") REFERENCES "coaches"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "training-packages" ADD CONSTRAINT "FK_TRAINING_PACKAGES-ATHLETES_01" FOREIGN KEY ("athlete_id") REFERENCES "coaches"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -124,13 +123,12 @@ export class InitialMigration1656597955289 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE "athletes" DROP CONSTRAINT "FK_ATHLETES-GROUPS_01"`);
-        await queryRunner.query(`ALTER TABLE "fit-orders" DROP CONSTRAINT "FK_FIT_ORDERS-ATHLETES_01"`);
-        await queryRunner.query(`ALTER TABLE "fit-orders" DROP CONSTRAINT "FK_FIT_ORDERS-COACHES_01"`);
+        await queryRunner.query(`ALTER TABLE "athletes" DROP CONSTRAINT "FK_ATHLETES-USERS_01"`);
+        await queryRunner.query(`ALTER TABLE "coaches" DROP CONSTRAINT "FK_COACHES-USERS_01"`);
+        await queryRunner.query(`ALTER TABLE "fit-orders" DROP CONSTRAINT "FK_FIT_ORDERS-USERS_01"`);
         await queryRunner.query(`ALTER TABLE "groups" DROP CONSTRAINT "FK_GROUPS-COACHES_01"`);
-        await queryRunner.query(`ALTER TABLE "notifications" DROP CONSTRAINT "FK_NOTIFICATIONS-ATHLETES_01"`);
-        await queryRunner.query(`ALTER TABLE "notifications" DROP CONSTRAINT "FK_NOTIFICATIONS-COACHES_01"`);
+        await queryRunner.query(`ALTER TABLE "notifications" DROP CONSTRAINT "FK_NOTIFICATIONS-USERS_01"`);
         await queryRunner.query(`ALTER TABLE "schedule" DROP CONSTRAINT "FK_SCHEDULE-GROUPS_0"`);
-        await queryRunner.query(`ALTER TABLE "trainings" DROP CONSTRAINT "FK_TRAININGS-COACHES_01"`);
         await queryRunner.query(`ALTER TABLE "trainings" DROP CONSTRAINT "FK_TRAININGS-COACHES_01"`);
         await queryRunner.query(`ALTER TABLE "training-packages" DROP CONSTRAINT "FK_TRAINING_PACKAGES-ATHLETES_01"`);
         await queryRunner.query(`DROP TYPE "public"."system_role_enum"`);
@@ -138,6 +136,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`DROP TYPE "public"."notification_type_enum"`);
         await queryRunner.query(`DROP TYPE "public"."training_status_enum"`);
         await queryRunner.query(`DROP TYPE "public"."weekday_enum"`);
+        await queryRunner.query(`DROP TABLE "users"`);
         await queryRunner.query(`DROP TABLE "athletes"`);
         await queryRunner.query(`DROP TABLE "coaches"`);
         await queryRunner.query(`DROP TABLE "fit-orders"`);

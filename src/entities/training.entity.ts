@@ -5,7 +5,7 @@ import { Group } from './group.entity';
 import { Coach } from './coach.entity';
 import { Athlete } from './athlete.entity';
 
-@Entity()
+@Entity({ name: 'trainings' })
 export class Training extends BaseEntity {
   @Column({ name: 'date', type: 'date' })
   public date: Date;

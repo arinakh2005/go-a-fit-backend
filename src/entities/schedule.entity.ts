@@ -3,7 +3,7 @@ import { BaseEntity } from './base.entity';
 import { Weekday } from '../enums/weekday.enum';
 import { Group } from './group.entity';
 
-@Entity()
+@Entity({ name: 'schedule' })
 export class Schedule extends BaseEntity {
   @Column({ name: 'start_at', type: 'date' })
   public startTime: Date;

@@ -9,11 +9,13 @@ import { NotificationRepository } from '../repositories/notification.repository'
 import { TrainingRepository } from '../repositories/training.repository';
 import { TrainingPackageRepository } from '../repositories/training-package.repository';
 import { ScheduleRepository } from '../repositories/schedule.repository';
+import { UserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class UnitOfWorkService {
     constructor(
         private readonly dataSource: DataSource,
+        public readonly userRepository: UserRepository,
         public readonly athleteRepository: AthleteRepository,
         public readonly coachRepository: CoachRepository,
         public readonly fitOrderRepository: FitOrderRepository,

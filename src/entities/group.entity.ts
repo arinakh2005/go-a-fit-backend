@@ -5,7 +5,7 @@ import { Coach } from './coach.entity';
 import { Training } from './training.entity';
 import { Schedule } from './schedule.entity';
 
-@Entity()
+@Entity({ name: 'groups' })
 export class Group extends BaseEntity {
   @Column({ name: 'name', type: 'varchar', length: 100 })
   public name: string;

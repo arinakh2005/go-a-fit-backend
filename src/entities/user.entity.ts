@@ -1,9 +1,12 @@
-import { Column, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { SystemRole } from '../enums/system-role.enum';
 import { Notification } from './notification.entity';
 import { FitOrder } from './fit-order.entity';
+import { Athlete } from './athlete.entity';
+import { Coach } from './coach.entity';
 
+@Entity({ name: 'users' })
 export abstract class User extends BaseEntity {
   @Column({ name: 'name', type: 'varchar', length: 50 })
   public name: string;
@@ -32,7 +35,7 @@ export abstract class User extends BaseEntity {
   @Column({ name: 'system_role', type: 'enum', enum: SystemRole, default: SystemRole.Athlete })
   public systemRole: SystemRole;
 
-  @Column({ name: 'fit_cent_amount', type: 'number', default: 0 })
+  @Column({ name: 'fit_cent_amount', type: 'int', default: 0 })
   public fitCentAmount: number;
 
   @OneToMany(() => Notification, (notification) => notification.recipient)
@@ -40,4 +43,10 @@ export abstract class User extends BaseEntity {
 
   @OneToMany(() => FitOrder, (fitOrder) => fitOrder.user)
   public fitOrders: FitOrder[];
+
+  @OneToOne(() => Athlete, (athlete) => athlete.user)
+  public athlete: Athlete;
+
+  @OneToOne(() => Coach, (coach) => coach.user)
+  public coach: Coach;
 }

@@ -6,11 +6,11 @@ export const typeOrmOptions = {
   port: 5432,
   password: 'admin',
   username: 'postgres',
-  entities: [`${__dirname}/**/*.entity.{ts,js}`],
+  entities: [`${__dirname}/../entities/*.entity{.ts,.js}`],
   migrations: [`${__dirname}/../migrations/*{.ts,.js}`],
   migrationsRun: true,
   database: 'go-a-fit',
-  synchronize: true,
+  synchronize: false,
   logging: true,
 } as TypeOrmModuleOptions;
 

@@ -31,6 +31,7 @@ import { ScheduleService } from './services/schedule.service';
 import { TrainingService } from './services/training.service';
 import { TrainingPackageService } from './services/training-package.service';
 import { UnitOfWorkService } from './services/unit-of-work.service';
+import { UserRepository } from './repositories/user.repository';
 
 const controllers = [
   AppController,
@@ -59,6 +60,7 @@ const services = [
 ];
 
 const repositories = [
+  UserRepository,
   AthleteRepository,
   CoachRepository,
   FitOrderRepository,

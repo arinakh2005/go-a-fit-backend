@@ -1,11 +1,16 @@
-import { Entity, JoinColumn, ManyToMany, OneToMany } from 'typeorm';
+import { Entity, JoinColumn, ManyToMany, OneToMany, OneToOne } from 'typeorm';
 import { TrainingPackage } from './training-package.entity';
 import { Training } from './training.entity';
-import { User } from './user.entity';
 import { Group } from './group.entity';
+import { BaseEntity } from './base.entity';
+import { User } from './user.entity';
 
-@Entity()
-export class Athlete extends User {
+@Entity({ name: 'athletes' })
+export class Athlete extends BaseEntity {
+  @OneToOne(() => User, (user) => user.athlete)
+  @JoinColumn({ name: 'user_id' })
+  public user: User;
+
   @OneToMany(() => TrainingPackage, (trainingPackage) => trainingPackage.athlete)
   public trainingPackages: TrainingPackage[];
 

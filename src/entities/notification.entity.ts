@@ -3,7 +3,7 @@ import { BaseEntity } from './base.entity';
 import { NotificationType } from '../enums/notification-type.enum';
 import { User } from './user.entity';
 
-@Entity()
+@Entity({ name: 'notifications' })
 export class Notification extends BaseEntity {
   @Column({ name: 'message', type: 'varchar', length: 500 })
   public message: string;

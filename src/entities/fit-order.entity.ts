@@ -3,7 +3,7 @@ import { BaseEntity } from './base.entity';
 import { User } from './user.entity';
 import { FitProduct } from './fit-product.entity';
 
-@Entity()
+@Entity({ name: 'fit-orders' })
 export class FitOrder extends BaseEntity {
   @Column({ name: 'comment', type: 'varchar', length: 500, nullable: true })
   public comment?: string;

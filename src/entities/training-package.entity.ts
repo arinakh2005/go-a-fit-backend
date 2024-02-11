@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Athlete } from './athlete.entity';
 
-@Entity()
+@Entity({ name: 'training-packages' })
 export class TrainingPackage extends BaseEntity {
   @Column({ name: 'beginning_date', type: 'date' })
   public beginningDate: Date;
@@ -10,7 +10,7 @@ export class TrainingPackage extends BaseEntity {
   @Column({ name: 'expiration_date', type: 'date' })
   public expirationDate: Date;
 
-  @Column({ name: 'available_trainings', type: 'number', default: 8 })
+  @Column({ name: 'available_trainings', type: 'int', default: 8 })
   public availableTrainings: number;
 
   @ManyToOne(() => Athlete, (athlete) => athlete.trainingPackages)

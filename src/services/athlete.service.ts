@@ -11,25 +11,25 @@ export class AthleteService extends BaseService {
     super(unitOfWork);
   }
 
-  public async createAthlete(createUserDto: CreateUserDto): Promise<Athlete> {
-    const work = async () => {
-      const athlete: Athlete = {
-        name: createUserDto.name,
-        surname: createUserDto.surname,
-        patronymic: createUserDto.patronymic || '',
-        dateOfBirth: createUserDto.dateOfBirth,
-        email: createUserDto.email,
-        username: createUserDto.username,
-        password: createUserDto.password,
-        systemRole: SystemRole.Athlete,
-        fitCentAmount: 0,
-        fitOrders: [],
-        notifications: [],
-       } as Athlete;
-
-      return await this.unitOfWork.coachRepository.save(athlete);
-    };
-
-    return await this.unitOfWork.doWork(work);
-  }
+  // public async createAthlete(createUserDto: CreateUserDto): Promise<Athlete> {
+  //   const work = async () => {
+  //     const athlete: Athlete = {
+  //       name: createUserDto.name,
+  //       surname: createUserDto.surname,
+  //       patronymic: createUserDto.patronymic || '',
+  //       dateOfBirth: createUserDto.dateOfBirth,
+  //       email: createUserDto.email,
+  //       username: createUserDto.username,
+  //       password: createUserDto.password,
+  //       systemRole: SystemRole.Athlete,
+  //       fitCentAmount: 0,
+  //       fitOrders: [],
+  //       notifications: [],
+  //      } as Athlete;
+  //
+  //     return await this.unitOfWork.coachRepository.save(athlete);
+  //   };
+  //
+  //   return await this.unitOfWork.doWork(work);
+  // }
 }

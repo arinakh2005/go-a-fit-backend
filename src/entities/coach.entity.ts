@@ -1,10 +1,15 @@
-import { Entity, OneToMany } from 'typeorm';
+import { Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { Training } from './training.entity';
-import { User } from './user.entity';
 import { Group } from './group.entity';
+import { BaseEntity } from './base.entity';
+import { User } from './user.entity';
 
-@Entity()
-export class Coach extends User {
+@Entity({ name: 'coaches' })
+export class Coach extends BaseEntity {
+  @OneToOne(() => User, (user) => user.coach)
+  @JoinColumn({ name: 'user_id' })
+  public user: User;
+
   @OneToMany(() => Group, (group) => group.coach)
   public groups: Group[];
 
