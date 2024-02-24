@@ -3,7 +3,8 @@ import { Group } from '../../entities/group.entity';
 import { Coach } from '../../entities/coach.entity';
 
 export class TrainingResponseDto {
-    public date: Date;
+    public startAt: Date;
+    public endAt: Date;
     public status: TrainingStatus;
     public group: Group;
     public conductedCoach: Coach;

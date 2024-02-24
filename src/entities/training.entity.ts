@@ -7,8 +7,11 @@ import { Athlete } from './athlete.entity';
 
 @Entity({ name: 'trainings' })
 export class Training extends BaseEntity {
-  @Column({ name: 'date', type: 'date' })
-  public date: Date;
+  @Column({ name: 'start_at', type: 'date' })
+  public startAt: Date;
+
+  @Column({ name: 'end_at', type: 'date' })
+  public endAt: Date;
 
   @Column({ name: 'status', type: 'enum', enum: TrainingStatus, default: TrainingStatus.Planned })
   public status: TrainingStatus;
