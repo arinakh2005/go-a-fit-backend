@@ -19,7 +19,7 @@ export class ScheduleItem extends BaseEntity {
   @Column({ name: 'occasion_type', type: 'enum', enum: OccasionType })
   public occasionType: OccasionType;
 
-  @Column({ name: 'all_day', type: 'boolean' })
+  @Column({ name: 'all_day', type: 'boolean', default: false })
   public isAllDay: boolean;
 
   @ManyToOne(() => Group, (group) => group.scheduleItems)

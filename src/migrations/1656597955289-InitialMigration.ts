@@ -87,7 +87,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                           "end" DATE NOT NULL,
                                           "title" character varying(100),
                                           "occasion_type" "public"."occasion_type" NOT NULL,
-                                          "all_day" BOOLEAN NOT NULL,
+                                          "all_day" BOOLEAN DEFAULT FALSE,
                                           "group_id" uuid,
                                           "coach_id" uuid,
                                           "athlete_id" uuid,
