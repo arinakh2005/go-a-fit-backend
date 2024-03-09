@@ -4,10 +4,10 @@ import { OccasionType } from '../../enums/occasion-type';
 
 export class ScheduleItemUpsertDto {
   @IsDateString()
-  public start: Date;
+  public start: string;
 
   @IsDateString()
-  public end: Date;
+  public end: string;
 
   @Optional()
   public title?: string;

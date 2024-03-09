@@ -7,11 +7,11 @@ import { Athlete } from './athlete.entity';
 
 @Entity({ name: 'schedule-items' })
 export class ScheduleItem extends BaseEntity {
-  @Column({ name: 'start', type: 'date' })
-  public start: Date;
+  @Column({ name: 'start', type: 'varchar' })
+  public start: string;
 
-  @Column({ name: 'end', type: 'date' })
-  public end: Date;
+  @Column({ name: 'end', type: 'varchar' })
+  public end: string;
 
   @Column({ name: 'title', type: 'varchar', length: 100 })
   public title: string;

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ScheduleItemService } from '../services/schedule-item.service';
 import { ScheduleItem } from '../entities/schedule-item.entity';
@@ -27,5 +27,12 @@ export class ScheduleItemsController {
     @Body() scheduleItemUpdateDto: ScheduleItemUpsertDto,
   ): Promise<ScheduleItem> {
     return await this.scheduleItemService.updateById(id, scheduleItemUpdateDto);
+  }
+
+  @Delete(':id')
+  public async deleteById(
+    @Param('id') id: string,
+  ): Promise<void> {
+    return await this.scheduleItemService.deleteById(id);
   }
 }

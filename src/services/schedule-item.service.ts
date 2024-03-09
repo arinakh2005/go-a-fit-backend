@@ -7,6 +7,7 @@ import { OccasionType } from '../enums/occasion-type';
 import { Group } from '../entities/group.entity';
 import { Coach } from '../entities/coach.entity';
 import { Athlete } from '../entities/athlete.entity';
+import { DateService } from './date.service';
 
 @Injectable()
 export class ScheduleItemService extends BaseService {
@@ -21,8 +22,8 @@ export class ScheduleItemService extends BaseService {
   public async create(scheduleItem: ScheduleItemUpsertDto): Promise<ScheduleItem> {
     const work = async () => {
       const scheduleItemToCreate: ScheduleItem = {
-        start: scheduleItem.start,
-        end: scheduleItem.end,
+        start: DateService.formatToString(scheduleItem.start),
+        end: DateService.formatToString(scheduleItem.end),
         title: scheduleItem.title,
         occasionType: scheduleItem.occasionType,
         isAllDay: scheduleItem.isAllDay,
@@ -45,11 +46,10 @@ export class ScheduleItemService extends BaseService {
   public async updateById(id: string, scheduleItem: ScheduleItemUpsertDto): Promise<ScheduleItem> {
     const work = async () => {
       const scheduleItemToUpdate = await this.unitOfWork.scheduleItemRepository.findById(id);
-
       if (!scheduleItemToUpdate) return;
 
-      scheduleItemToUpdate.start = scheduleItem.start;
-      scheduleItemToUpdate.end = scheduleItem.end;
+      scheduleItemToUpdate.start = DateService.formatToString(scheduleItem.start);
+      scheduleItemToUpdate.end = DateService.formatToString(scheduleItem.end);
       scheduleItemToUpdate.title = scheduleItem.title;
       scheduleItemToUpdate.occasionType = scheduleItem.occasionType;
       scheduleItemToUpdate.isAllDay = scheduleItem.isAllDay;
@@ -69,6 +69,17 @@ export class ScheduleItemService extends BaseService {
       }
 
       return await this.unitOfWork.scheduleItemRepository.save(scheduleItemToUpdate);
+    };
+
+    return await this.unitOfWork.doWork(work);
+  }
+
+  public async deleteById(id: string): Promise<void> {
+    const work = async () => {
+      const scheduleItem = await this.unitOfWork.scheduleItemRepository.findById(id);
+      if (!scheduleItem) return;
+
+      await this.unitOfWork.scheduleItemRepository.softRemove(scheduleItem);
     };
 
     return await this.unitOfWork.doWork(work);

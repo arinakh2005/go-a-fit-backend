@@ -47,7 +47,7 @@ export class ResponseInterceptor implements NestInterceptor {
       status: ResponseStatus.Success,
       statusCode,
       result: res,
-      message: res.message,
+      message: res?.message,
     };
   }
 }
