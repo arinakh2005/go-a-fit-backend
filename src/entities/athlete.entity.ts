@@ -15,7 +15,6 @@ export class Athlete extends BaseEntity {
   public trainingPackages: TrainingPackage[];
 
   @ManyToMany(() => Group, (group) => group.athletes)
-  @JoinColumn({ name: 'group_id' })
   public groups: Group[];
 
   @ManyToMany(() => Training, (training) => training.attendantAthletes)

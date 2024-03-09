@@ -32,9 +32,13 @@ import { TrainingService } from './services/training.service';
 import { TrainingPackageService } from './services/training-package.service';
 import { UnitOfWorkService } from './services/unit-of-work.service';
 import { UserRepository } from './repositories/user.repository';
+import { CoachesController } from './controllers/coaches.controller';
+import { AthletesController } from './controllers/athletes.controller';
 
 const controllers = [
   AppController,
+  CoachesController,
+  AthletesController,
   FitOrdersController,
   FitProductsController,
   GroupsController,

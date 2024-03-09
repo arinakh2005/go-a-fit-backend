@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from '../dtos/user/create-user.dto';
-import { SystemRole } from '../enums/system-role.enum';
 import { BaseService } from './base.service';
 import { UnitOfWorkService } from './unit-of-work.service';
 import { Coach } from '../entities/coach.entity';
@@ -35,4 +33,12 @@ export class CoachService extends BaseService {
 
     // return await this.unitOfWork.doWork(work);
   // }
+  public async findAll(): Promise<Coach[]> {
+    return await this.unitOfWork.coachRepository.find({
+      relations: {
+        user: true,
+        groups: true,
+      },
+    });
+  }
 }

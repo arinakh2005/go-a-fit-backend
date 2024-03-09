@@ -32,7 +32,6 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                      "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                      "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                      "deleted_at" TIMESTAMP, 
-                                     "group_id" uuid,
                                      "user_id" uuid,
                                      CONSTRAINT "PK_ATHLETE_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
@@ -111,7 +110,6 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                               "athlete_id" uuid,
                                               CONSTRAINT "PK_TRAINING_PACKAGES_01" PRIMARY KEY ("id"))`);
 
-        await queryRunner.query(`ALTER TABLE "athletes" ADD CONSTRAINT "FK_ATHLETES-GROUPS_01" FOREIGN KEY ("group_id") REFERENCES "groups"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "athletes" ADD CONSTRAINT "FK_ATHLETES-USERS_01" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "coaches" ADD CONSTRAINT "FK_COACHES-USERS_01" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "fit-orders" ADD CONSTRAINT "FK_FIT_ORDERS-USERS_01" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -123,7 +121,6 @@ export class InitialMigration1656597955289 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`ALTER TABLE "athletes" DROP CONSTRAINT "FK_ATHLETES-GROUPS_01"`);
         await queryRunner.query(`ALTER TABLE "athletes" DROP CONSTRAINT "FK_ATHLETES-USERS_01"`);
         await queryRunner.query(`ALTER TABLE "coaches" DROP CONSTRAINT "FK_COACHES-USERS_01"`);
         await queryRunner.query(`ALTER TABLE "fit-orders" DROP CONSTRAINT "FK_FIT_ORDERS-USERS_01"`);
