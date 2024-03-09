@@ -3,7 +3,7 @@ import { BaseEntity } from './base.entity';
 import { Athlete } from './athlete.entity';
 import { Coach } from './coach.entity';
 import { Training } from './training.entity';
-import { Schedule } from './schedule.entity';
+import { ScheduleItem } from './schedule-item.entity';
 
 @Entity({ name: 'groups' })
 export class Group extends BaseEntity {
@@ -17,8 +17,8 @@ export class Group extends BaseEntity {
   @JoinColumn({ name: 'coach_id' })
   public coach: Coach;
 
-  @OneToMany(() => Schedule, (schedule) => schedule.group)
-  public schedules: Schedule[];
+  @OneToMany(() => ScheduleItem, (schedule) => schedule.group)
+  public scheduleItems: ScheduleItem[];
 
   @OneToMany(() => Training, (training) => training.group)
   public trainings: Training[];

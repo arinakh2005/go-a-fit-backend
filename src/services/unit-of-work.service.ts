@@ -8,7 +8,7 @@ import { GroupRepository } from '../repositories/group.repository';
 import { NotificationRepository } from '../repositories/notification.repository';
 import { TrainingRepository } from '../repositories/training.repository';
 import { TrainingPackageRepository } from '../repositories/training-package.repository';
-import { ScheduleRepository } from '../repositories/schedule.repository';
+import { ScheduleItemRepository } from '../repositories/schedule-item.repository';
 import { UserRepository } from '../repositories/user.repository';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class UnitOfWorkService {
         public readonly fitOrderRepository: FitOrderRepository,
         public readonly fitProductRepository: FitProductRepository,
         public readonly groupRepository: GroupRepository,
-        public readonly scheduleRepository: ScheduleRepository,
+        public readonly scheduleItemRepository: ScheduleItemRepository,
         public readonly notificationRepository: NotificationRepository,
         public readonly trainingRepository: TrainingRepository,
         public readonly trainingPackageRepository: TrainingPackageRepository,

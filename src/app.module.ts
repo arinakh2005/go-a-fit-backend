@@ -5,7 +5,7 @@ import { FitOrdersController } from './controllers/fit-orders.controller';
 import { FitProductsController } from './controllers/fit-products.controller';
 import { GroupsController } from './controllers/groups.controller';
 import { NotificationsController } from './controllers/notifications.controller';
-import { ScheduleController } from './controllers/schedule.controller';
+import { ScheduleItemsController } from './controllers/schedule-items.controller';
 import { TrainingPackagesController } from './controllers/training-packages.controller';
 import { TrainingsController } from './controllers/trainings.controller';
 import { UsersController } from './controllers/users.controller';
@@ -18,7 +18,7 @@ import { FitOrderRepository } from './repositories/fit-order.repository';
 import { FitProductRepository } from './repositories/fit-product.repository';
 import { GroupRepository } from './repositories/group.repository';
 import { NotificationRepository } from './repositories/notification.repository';
-import { ScheduleRepository } from './repositories/schedule.repository';
+import { ScheduleItemRepository } from './repositories/schedule-item.repository';
 import { TrainingRepository } from './repositories/training.repository';
 import { TrainingPackageRepository } from './repositories/training-package.repository';
 import { AthleteService } from './services/athlete.service';
@@ -27,7 +27,7 @@ import { FitOrderService } from './services/fit-order.service';
 import { FitProductService } from './services/fit-product.service';
 import { GroupService } from './services/group.service';
 import { NotificationService } from './services/notification.service';
-import { ScheduleService } from './services/schedule.service';
+import { ScheduleItemService } from './services/schedule-item.service';
 import { TrainingService } from './services/training.service';
 import { TrainingPackageService } from './services/training-package.service';
 import { UnitOfWorkService } from './services/unit-of-work.service';
@@ -43,7 +43,7 @@ const controllers = [
   FitProductsController,
   GroupsController,
   NotificationsController,
-  ScheduleController,
+  ScheduleItemsController,
   TrainingPackagesController,
   TrainingsController,
   UsersController,
@@ -58,7 +58,7 @@ const services = [
   FitProductService,
   GroupService,
   NotificationService,
-  ScheduleService,
+  ScheduleItemService,
   TrainingService,
   TrainingPackageService,
 ];
@@ -71,7 +71,7 @@ const repositories = [
   FitProductRepository,
   GroupRepository,
   NotificationRepository,
-  ScheduleRepository,
+  ScheduleItemRepository,
   TrainingRepository,
   TrainingPackageRepository,
 ];
