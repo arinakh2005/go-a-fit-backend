@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiTags } from "@nestjs/swagger";
+import { ApiTags } from '@nestjs/swagger';
 import { ScheduleItemService } from '../services/schedule-item.service';
 import { ScheduleItem } from '../entities/schedule-item.entity';
 import { ScheduleItemUpsertDto } from '../dtos/schedule-item/schedule-item-upsert.dto';
