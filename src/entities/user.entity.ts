@@ -26,7 +26,7 @@ export abstract class User extends BaseEntity {
   @Column({ name: 'username', type: 'varchar', length: 50 })
   public username: string;
 
-  @Column({ name: 'password', type: 'varchar', length: 50 })
+  @Column({ name: 'password', type: 'varchar', length: 60 })
   public password: string;
 
   @Column({ name: 'image_url', type: 'varchar', nullable: true })

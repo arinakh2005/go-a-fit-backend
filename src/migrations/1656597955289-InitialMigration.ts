@@ -22,7 +22,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                   "date_of_birth" DATE NOT NULL, 
                                   "email" character varying(100) NOT NULL, 
                                   "username" character varying(50) NOT NULL,
-                                  "password" character varying(50) NOT NULL,
+                                  "password" character varying(60) NOT NULL,
                                   "image_url" character varying,
                                   "group_id" uuid,
                                   "system_role" "public"."system_role_enum" NOT NULL DEFAULT 'Athlete',

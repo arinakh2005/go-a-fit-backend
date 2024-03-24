@@ -34,6 +34,8 @@ import { UnitOfWorkService } from './services/unit-of-work.service';
 import { UserRepository } from './repositories/user.repository';
 import { CoachesController } from './controllers/coaches.controller';
 import { AthletesController } from './controllers/athletes.controller';
+import { UserService } from './services/user.service';
+import { JwtModule } from '@nestjs/jwt';
 
 const controllers = [
   AppController,
@@ -54,6 +56,7 @@ const services = [
   UnitOfWorkService,
   AthleteService,
   CoachService,
+  UserService,
   FitOrderService,
   FitProductService,
   GroupService,
@@ -80,6 +83,10 @@ const repositories = [
   imports: [
     TypeOrmModule.forRoot(config.db),
     TypeOrmExModule.forCustomRepository(repositories),
+    JwtModule.register({
+      secret: 'secret',
+      signOptions: { expiresIn: '1d' },
+    }),
   ],
   controllers: [...controllers],
   providers: [...services],
