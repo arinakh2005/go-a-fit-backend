@@ -10,7 +10,7 @@ import { TrainingPackagesController } from './controllers/training-packages.cont
 import { TrainingsController } from './controllers/trainings.controller';
 import { UsersController } from './controllers/users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import config from './configs/config';
+import config, { GOOGLE_API_FOLDER_ID } from './configs/config';
 import { TypeOrmExModule } from './typeorm-ex/typeorm-ex.module';
 import { AthleteRepository } from './repositories/athlete.repository';
 import { CoachRepository } from './repositories/coach.repository';
@@ -36,9 +36,7 @@ import { CoachesController } from './controllers/coaches.controller';
 import { AthletesController } from './controllers/athletes.controller';
 import { UserService } from './services/user.service';
 import { JwtModule } from '@nestjs/jwt';
-import { MulterModule } from '@nestjs/platform-express';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { GoogleDriveModule } from 'nestjs-googledrive-upload';
 
 const controllers = [
   AppController,
@@ -84,12 +82,10 @@ const repositories = [
 
 @Module({
   imports: [
-    MulterModule.register({
-      dest: './uploads',
-    }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads')
-    }),
+    GoogleDriveModule.register(
+      config.google,
+      GOOGLE_API_FOLDER_ID,
+    ),
     TypeOrmModule.forRoot(config.db),
     TypeOrmExModule.forCustomRepository(repositories),
     JwtModule.register({

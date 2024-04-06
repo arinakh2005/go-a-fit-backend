@@ -7,10 +7,14 @@ import { Coach } from '../entities/coach.entity';
 import { Athlete } from '../entities/athlete.entity';
 import { SystemRole } from '../enums/system-role.enum';
 import { RetrieveUserDto } from '../dtos/user/retrieve-user.dto';
+import { GoogleDriveService } from 'nestjs-googledrive-upload';
 
 @Injectable()
 export class UserService extends BaseService {
-  constructor(protected readonly unitOfWork: UnitOfWorkService) {
+  constructor(
+    protected readonly unitOfWork: UnitOfWorkService,
+    private readonly googleDriveService: GoogleDriveService,
+  ) {
     super(unitOfWork);
   }
 
@@ -56,7 +60,7 @@ export class UserService extends BaseService {
         email: createUserDto.email,
         username: createUserDto.username,
         password: createUserDto.password,
-        imageUrl: createUserDto.imageUrl,
+        imageUrl: createUserDto.imageUrl || '',
       } as User;
 
       const createdUser = await this.unitOfWork.userRepository.save(userToCreate);
@@ -84,6 +88,21 @@ export class UserService extends BaseService {
 
       return await this.findById(createdUser.id);
     };
+
+    return await this.unitOfWork.doWork(work);
+  }
+
+  public async uploadAvatar(userId: string, file: Express.Multer.File): Promise<string> {
+    const work = async () => {
+      const user = await this.unitOfWork.userRepository.findById(userId);
+
+      file.originalname = `avatar-user-${userId}`;
+      file.filename = `avatar-user-${userId}`;
+      user.imageUrl = await this.googleDriveService.uploadImage(file);
+      await this.unitOfWork.userRepository.save(user);
+
+      return user.imageUrl;
+    }
 
     return await this.unitOfWork.doWork(work);
   }

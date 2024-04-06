@@ -6,7 +6,8 @@ import { applyDecorators, UseInterceptors } from '@nestjs/common';
 
 export function ApiFile(
   fieldName: string = 'file',
-  required: boolean = false,
+  requiredFieldKeys: string[] = [],
+  extraProperties: object = { },
   localOptions?: MulterOptions,
 ): <TFunction extends Function, Y>(target: (object | TFunction), propertyKey?: (string | symbol), descriptor?: TypedPropertyDescriptor<Y>) => void {
   return applyDecorators(
@@ -15,8 +16,9 @@ export function ApiFile(
     ApiBody({
       schema: {
         type: 'object',
-        required: required ? [fieldName] : [],
+        required: requiredFieldKeys ? requiredFieldKeys : [],
         properties: {
+          ...extraProperties,
           [fieldName]: {
             type: 'string',
             format: 'binary',
@@ -29,9 +31,10 @@ export function ApiFile(
 
 export function ApiImageFile(
   fileName: string = 'image',
-  required: boolean = false,
+  requiredFieldKeys: string[],
+  extraProperties: object = { },
 ): <TFunction extends Function, Y>(target: (object | TFunction), propertyKey?: (string | symbol), descriptor?: TypedPropertyDescriptor<Y>) => void {
-  return ApiFile(fileName, required, {
+  return ApiFile(fileName, requiredFieldKeys, extraProperties, {
     fileFilter: fileMimetypeFilter('image'),
   });
 }

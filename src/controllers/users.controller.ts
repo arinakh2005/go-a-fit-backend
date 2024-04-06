@@ -48,9 +48,12 @@ export class UsersController {
   }
 
   @Post('avatar-upload')
-  @ApiImageFile('avatar', true)
-  public uploadFile(@UploadedFile() file: Express.Multer.File): void {
-    console.log(file);
+  @ApiImageFile('image', ['userId'], { userId: { type: 'string' }})
+  public async uploadFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Req() request: Request,
+  ): Promise<string> {
+    return await this.userService.uploadAvatar(request.body['userId'], file);
   }
 
   @Post('login')
