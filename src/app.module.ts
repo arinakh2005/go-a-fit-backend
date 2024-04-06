@@ -36,6 +36,9 @@ import { CoachesController } from './controllers/coaches.controller';
 import { AthletesController } from './controllers/athletes.controller';
 import { UserService } from './services/user.service';
 import { JwtModule } from '@nestjs/jwt';
+import { MulterModule } from '@nestjs/platform-express';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 const controllers = [
   AppController,
@@ -81,6 +84,12 @@ const repositories = [
 
 @Module({
   imports: [
+    MulterModule.register({
+      dest: './uploads',
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads')
+    }),
     TypeOrmModule.forRoot(config.db),
     TypeOrmExModule.forCustomRepository(repositories),
     JwtModule.register({

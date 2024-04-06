@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Req, Res, UnauthorizedException, UploadedFile } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from '../dtos/user/create-user.dto';
@@ -7,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginUserDto } from '../dtos/user/login-user.dto';
 import { Request, Response } from 'express';
 import { RetrieveUserDto } from '../dtos/user/retrieve-user.dto';
+import { ApiImageFile } from '../decorators/api-file.decorator';
 
 @ApiTags('users')
 @Controller('api/users')
@@ -44,6 +45,12 @@ export class UsersController {
     createUserDto.password = await bcrypt.hash(createUserDto.password, 12);
 
     return await this.userService.create(createUserDto);
+  }
+
+  @Post('avatar-upload')
+  @ApiImageFile('avatar', true)
+  public uploadFile(@UploadedFile() file: Express.Multer.File): void {
+    console.log(file);
   }
 
   @Post('login')
