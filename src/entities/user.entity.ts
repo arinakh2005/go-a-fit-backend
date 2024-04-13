@@ -23,6 +23,9 @@ export abstract class User extends BaseEntity {
   @Column({ name: 'email', type: 'varchar', length: 100 })
   public email: string;
 
+  @Column({ name: 'phone', type: 'varchar', length: 13 })
+  public phone: string;
+
   @Column({ name: 'username', type: 'varchar', length: 50 })
   public username: string;
 

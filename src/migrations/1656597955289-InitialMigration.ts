@@ -21,6 +21,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                   "patronymic" character varying(50),
                                   "date_of_birth" DATE NOT NULL, 
                                   "email" character varying(100) NOT NULL, 
+                                  "phone" character varying(13) DEFAULT NULL, 
                                   "username" character varying(50) NOT NULL,
                                   "password" character varying(60) NOT NULL,
                                   "image_url" character varying,

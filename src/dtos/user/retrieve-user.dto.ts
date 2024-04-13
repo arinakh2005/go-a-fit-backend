@@ -10,6 +10,7 @@ export class RetrieveUserDto {
   public patronymic: string;
   public dateOfBirth: Date;
   public email: string;
+  public phone: string;
   public username: string;
   public imageUrl?: string;
   public systemRole: SystemRole;

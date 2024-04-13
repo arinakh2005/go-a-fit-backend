@@ -1,4 +1,4 @@
-import { IsAlphanumeric, IsDateString, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, Matches, MinLength } from 'class-validator';
+import { IsAlphanumeric, IsDateString, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, Matches, MinLength } from 'class-validator';
 import { SystemRole } from '../../enums/system-role.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -28,6 +28,10 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsEmail(null, { message: 'Please provide valid email.' })
   public email: string;
+
+  @ApiProperty()
+  @IsPhoneNumber('UA', { message: 'Please provide valid phone number.' })
+  public phone: string;
 
   @ApiProperty()
   @IsNotEmpty()
