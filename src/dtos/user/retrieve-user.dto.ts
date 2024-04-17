@@ -5,18 +5,18 @@ import { Athlete } from '../../entities/athlete.entity';
 import { Coach } from '../../entities/coach.entity';
 
 export class RetrieveUserDto {
-  public name: string;
-  public surname: string;
-  public patronymic: string;
-  public dateOfBirth: Date;
-  public email: string;
-  public phone: string;
-  public username: string;
-  public imageUrl?: string;
-  public systemRole: SystemRole;
-  public fitCentAmount: number;
-  public notifications: Notification[];
-  public fitOrders: FitOrder[];
-  public athlete: Athlete;
-  public coach: Coach;
+  name: string;
+  surname: string;
+  patronymic: string;
+  dateOfBirth: Date;
+  email: string;
+  phone: string;
+  username: string;
+  imageUrl?: string;
+  systemRole: SystemRole;
+  fitCentAmount: number;
+  notifications: Notification[];
+  fitOrders: FitOrder[];
+  athlete: Athlete;
+  coach: Coach;
 }

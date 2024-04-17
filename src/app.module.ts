@@ -37,9 +37,11 @@ import { AthletesController } from './controllers/athletes.controller';
 import { UserService } from './services/user.service';
 import { JwtModule } from '@nestjs/jwt';
 import { GoogleDriveModule } from 'nestjs-googledrive-upload';
+import { AuthController } from './auth/auth.controller';
 
 const controllers = [
   AppController,
+  AuthController,
   CoachesController,
   AthletesController,
   FitOrdersController,
@@ -96,4 +98,4 @@ const repositories = [
   controllers: [...controllers],
   providers: [...services],
 })
-export class AppModule {}
+export class AppModule { }
