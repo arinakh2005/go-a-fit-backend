@@ -14,4 +14,11 @@ export class GroupService extends BaseService {
       relations: { coach: true },
     });
   }
+
+  public async findCoachGroupsById(id: string): Promise<Group[]> {
+    return await this.unitOfWork.groupRepository.find({
+      where: { coach: { user: { id }}},
+      relations: { coach: { user: true }},
+    });
+  }
 }

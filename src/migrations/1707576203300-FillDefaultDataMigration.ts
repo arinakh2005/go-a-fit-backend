@@ -7,19 +7,19 @@ export class FillDefaultDataMigration1707576203300 implements MigrationInterface
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "system_role") 
                                        VALUES('52db0d5e-c193-4bfb-ae89-e90c44651c56', now(), now(), null, 'Milena', 'Kholodnytska', '1978-08-08', 'milenakholodnytska@gmail.com', '+380955767084', 'milena', 'milena08', 'Coach');`);
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "system_role") 
-                                       VALUES('adac1111-3dc1-4a8b-9361-5a778d01a9af', now(), now(), null, 'Arina', 'Kholodnytska', '2003-05-20', 'arinakholodnytska6@gmail.com', '+380686302468', 'arina', '12345678', 'Admin');`);
+                                       VALUES('adac1111-3dc1-4a8b-9361-5a778d01a9af', now(), now(), null, 'Arina', 'Kholodnytska', '2003-05-20', 'arinakholodnytska6@gmail.com', '+380686302468', 'arina', '$2b$12$GrSt75pmLfy3BLfUN0RMTujjEJZXLe9yC9dZce2c6w8eMQunzp/U2', 'Coach');`);
 
         await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id") 
                                        VALUES('cf0d6d0e-354f-45ee-956f-045fc3a039c3', now(), now(), null, '52db0d5e-c193-4bfb-ae89-e90c44651c56');`);
         await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id") 
                                        VALUES('30d4eeb9-8c38-4ac2-8884-b1ffffa0928b', now(), now(), null, 'adac1111-3dc1-4a8b-9361-5a778d01a9af');`);
 
-        await queryRunner.query(`INSERT INTO public.groups (id, created_at, updated_at, deleted_at, "name", "coach_id") 
-                                       VALUES('c39cb1b3-9172-4b71-a2fe-2e0c748ec36b', now(), now(), null, 'GR-01', 'cf0d6d0e-354f-45ee-956f-045fc3a039c3');`);
-        await queryRunner.query(`INSERT INTO public.groups (id, created_at, updated_at, deleted_at, "name", "coach_id") 
-                                       VALUES('8a02bd73-d34e-4f7d-a26a-deb98565b6fd', now(), now(), null, 'GR-02', '30d4eeb9-8c38-4ac2-8884-b1ffffa0928b');`);
-        await queryRunner.query(`INSERT INTO public.groups (id, created_at, updated_at, deleted_at, "name", "coach_id") 
-                                       VALUES('7378f992-c91e-48b7-98bc-1d84bf26affd', now(), now(), null, 'GR-03', '30d4eeb9-8c38-4ac2-8884-b1ffffa0928b');`);
+        await queryRunner.query(`INSERT INTO public.groups (id, created_at, updated_at, deleted_at, "title", "description", "coach_id") 
+                                       VALUES('c39cb1b3-9172-4b71-a2fe-2e0c748ec36b', now(), now(), null, 'GR-01', 'Пн/Ср/Пт 17:00-18:30', 'cf0d6d0e-354f-45ee-956f-045fc3a039c3');`);
+        await queryRunner.query(`INSERT INTO public.groups (id, created_at, updated_at, deleted_at, "title", "description", "coach_id") 
+                                       VALUES('8a02bd73-d34e-4f7d-a26a-deb98565b6fd', now(), now(), null, 'GR-02', 'Пн/Ср/Пт 18:30-19:30', '30d4eeb9-8c38-4ac2-8884-b1ffffa0928b');`);
+        await queryRunner.query(`INSERT INTO public.groups (id, created_at, updated_at, deleted_at, "title", "description", "coach_id") 
+                                       VALUES('7378f992-c91e-48b7-98bc-1d84bf26affd', now(), now(), null, 'GR-03', 'Вт/Чт/Сб 9:00-10:00', '30d4eeb9-8c38-4ac2-8884-b1ffffa0928b');`);
 
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "image_url", "system_role", "fit_cent_amount") 
                                        VALUES('962ff543-51ae-4379-bd2b-639b90f93409', now(), now(), null, 'Anton', 'Mazur', '1992-12-02', 'anton.m@gmail.com', '+380936172490', 'anton_m', 'anton1202', 'https://drive.google.com/thumbnail?id=1b16EXSIF13ZYxPSOAt6kXiVABaeSEY4X', 'Athlete', 50);`);
@@ -46,9 +46,30 @@ export class FillDefaultDataMigration1707576203300 implements MigrationInterface
                                        VALUES('6109d551-567b-4a15-b39e-a19fdad047f3', now(), now(), null, 'deb3ccea-9612-4d1d-a420-39dbf4a9e0bd');`);
         await queryRunner.query(`INSERT INTO public.athletes (id, created_at, updated_at, deleted_at, "user_id") 
                                        VALUES('d2c83ef4-6ee4-41fa-945c-8c655223ee2d', now(), now(), null, '8d82e994-034a-4bab-a786-746c0815358e');`);
+
+        await queryRunner.query(`INSERT INTO public."athletes-groups" (id, created_at, updated_at, deleted_at, "athlete_id", "group_id") 
+                                       VALUES('824ddcb6-a27f-4f48-a44a-46cdc9e00a91', now(), now(), null, '5289cf9e-e4cf-479c-a17b-15ac019579a5', 'c39cb1b3-9172-4b71-a2fe-2e0c748ec36b');`);
+        await queryRunner.query(`INSERT INTO public."athletes-groups" (id, created_at, updated_at, deleted_at, "athlete_id", "group_id") 
+                                       VALUES('e9599d1b-475f-4323-99bd-9e44acb324a9', now(), now(), null, '86067fb3-81cf-4765-b527-8b72ba2798e5', '8a02bd73-d34e-4f7d-a26a-deb98565b6fd');`);
+        await queryRunner.query(`INSERT INTO public."athletes-groups" (id, created_at, updated_at, deleted_at, "athlete_id", "group_id") 
+                                       VALUES('a9d4a6c0-9780-4ae3-89f7-44bd3289eb1f', now(), now(), null, '6edc4cec-d48a-4ee3-a1ee-dcb780eb89a8', '8a02bd73-d34e-4f7d-a26a-deb98565b6fd');`);
+        await queryRunner.query(`INSERT INTO public."athletes-groups" (id, created_at, updated_at, deleted_at, "athlete_id", "group_id") 
+                                       VALUES('af89f2f2-facf-4c4d-9cfd-de869f1e1bd8', now(), now(), null, '3cee354f-7995-4bf1-a0b0-ece494fcdae3', 'c39cb1b3-9172-4b71-a2fe-2e0c748ec36b');`);
+        await queryRunner.query(`INSERT INTO public."athletes-groups" (id, created_at, updated_at, deleted_at, "athlete_id", "group_id") 
+                                       VALUES('3e6574fd-75b7-4c07-846e-81b6fe69ebe2', now(), now(), null, '6109d551-567b-4a15-b39e-a19fdad047f3', '7378f992-c91e-48b7-98bc-1d84bf26affd');`);
+        await queryRunner.query(`INSERT INTO public."athletes-groups" (id, created_at, updated_at, deleted_at, "athlete_id", "group_id") 
+                                       VALUES('501b6e82-7d96-4d6a-80dc-cce6003a689f', now(), now(), null, 'd2c83ef4-6ee4-41fa-945c-8c655223ee2d', 'c39cb1b3-9172-4b71-a2fe-2e0c748ec36b');`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`DELETE FROM "athletes-groups" WHERE id IN(
+            '824ddcb6-a27f-4f48-a44a-46cdc9e00a91',
+            'e9599d1b-475f-4323-99bd-9e44acb324a9', 
+            'a9d4a6c0-9780-4ae3-89f7-44bd3289eb1f',
+            'af89f2f2-facf-4c4d-9cfd-de869f1e1bd8',
+            '3e6574fd-75b7-4c07-846e-81b6fe69ebe2',
+            '501b6e82-7d96-4d6a-80dc-cce6003a689f',
+        );`);
         await queryRunner.query(`DELETE FROM "users" WHERE id IN(
             '962ff543-51ae-4379-bd2b-639b90f93409',
             '9afbf696-2428-448e-8cb8-8d953d01afe5', 

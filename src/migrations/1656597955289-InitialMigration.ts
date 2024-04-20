@@ -67,9 +67,19 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                    "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                    "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                    "deleted_at" TIMESTAMP, 
-                                   "name" character varying(100) NOT NULL,
+                                   "title" character varying(50) NOT NULL,
+                                   "description" character varying(100) DEFAULT '',
                                    "coach_id" uuid,
                                    CONSTRAINT "PK_GROUPS_01" PRIMARY KEY ("id"))`);
+      await queryRunner.query(`
+            CREATE TABLE "athletes-groups" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+                                            "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
+                                            "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
+                                            "deleted_at" TIMESTAMP, 
+                                            "athlete_id" uuid,
+                                            "group_id" uuid,
+                                            CONSTRAINT "PK_ATHLETES-GROUPS_SOLVING_01" PRIMARY KEY ("id")),
+                                            CONSTRAINT "PK_GROUPS-ATHLETES_SOLVING_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
             CREATE TABLE "notifications" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                                           "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
@@ -119,6 +129,8 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "coaches" ADD CONSTRAINT "FK_COACHES-USERS_01" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "fit-orders" ADD CONSTRAINT "FK_FIT_ORDERS-USERS_01" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "groups" ADD CONSTRAINT "FK_GROUPS-COACHES_01" FOREIGN KEY ("coach_id") REFERENCES "coaches"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "athletes-groups" ADD CONSTRAINT "PK_ATHLETES-GROUPS_SOLVING_01" FOREIGN KEY ("athlete_id") REFERENCES "athletes"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "athletes-groups" ADD CONSTRAINT "PK_GROUPS-ATHLETES_SOLVING_01" FOREIGN KEY ("group_id") REFERENCES "groups"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "notifications" ADD CONSTRAINT "FK_NOTIFICATIONS-USERS_01" FOREIGN KEY ("recipient_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "schedule-items" ADD CONSTRAINT "FK_SCHEDULE-ITEMS-GROUPS_01" FOREIGN KEY ("group_id") REFERENCES "groups"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "schedule-items" ADD CONSTRAINT "FK_SCHEDULE-ITEMS-COACH_01" FOREIGN KEY ("coach_id") REFERENCES "coaches"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -132,6 +144,8 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "coaches" DROP CONSTRAINT "FK_COACHES-USERS_01"`);
         await queryRunner.query(`ALTER TABLE "fit-orders" DROP CONSTRAINT "FK_FIT_ORDERS-USERS_01"`);
         await queryRunner.query(`ALTER TABLE "groups" DROP CONSTRAINT "FK_GROUPS-COACHES_01"`);
+        await queryRunner.query(`ALTER TABLE "athletes-groups" DROP CONSTRAINT "PK_ATHLETES-GROUPS_SOLVING_01"`);
+        await queryRunner.query(`ALTER TABLE "athletes-groups" DROP CONSTRAINT "PK_GROUPS-ATHLETES_SOLVING_01"`);
         await queryRunner.query(`ALTER TABLE "notifications" DROP CONSTRAINT "FK_NOTIFICATIONS-USERS_01"`);
         await queryRunner.query(`ALTER TABLE "schedule-items" DROP CONSTRAINT "FK_SCHEDULE-ITEMS-GROUPS_01"`);
         await queryRunner.query(`ALTER TABLE "schedule-items" DROP CONSTRAINT "FK_SCHEDULE-ITEMS-COACH_01"`);

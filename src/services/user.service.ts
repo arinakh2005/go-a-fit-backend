@@ -29,6 +29,7 @@ export class UserService extends BaseService {
   public async findById(id: string): Promise<RetrieveUserDto> {
     const user = await this.unitOfWork.userRepository.findById(id);
     const retrievedUserData: RetrieveUserDto = {
+      id: user.id,
       name: user.name,
       surname: user.surname,
       patronymic: user?.patronymic,

@@ -5,6 +5,7 @@ import { Athlete } from '../../entities/athlete.entity';
 import { Coach } from '../../entities/coach.entity';
 
 export class RetrieveUserDto {
+  id: string;
   name: string;
   surname: string;
   patronymic: string;
