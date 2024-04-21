@@ -13,7 +13,7 @@ export class FitProduct extends BaseEntity {
   public description: string;
 
   @Column({ name: 'category', type: 'enum', enum: FitProductCategory })
-  public category: string;
+  public category: FitProductCategory;
 
   @Column({ name: 'image_url', type: 'varchar', nullable: true })
   public imageUrl?: string;
@@ -23,6 +23,9 @@ export class FitProduct extends BaseEntity {
 
   @Column({ name: 'quantity', type: 'int', default: 0 })
   public quantity: number;
+
+  @Column({ name: 'rating', type: 'real', default: 0 })
+  public rating: number;
 
   @Column({ name: 'cost', type: 'int', default: 0 })
   public cost: number;

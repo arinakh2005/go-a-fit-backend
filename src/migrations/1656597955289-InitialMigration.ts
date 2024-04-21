@@ -63,6 +63,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                         "image_url" character varying,
                                         "availability" "public"."fit_product_availability_enum" NOT NULL DEFAULT 'В наявності',
                                         "quantity" integer DEFAULT 0,
+                                        "rating" real DEFAULT 0,
                                         "cost" integer DEFAULT 0,
                                         CONSTRAINT "PK_FIT_PRODUCTS_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
