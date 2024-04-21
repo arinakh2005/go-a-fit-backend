@@ -1,5 +1,5 @@
 export enum SystemRole {
-  Athlete = 'Athlete',
-  Coach = 'Coach',
-  Admin = 'Admin',
+  Athlete = 'Атлет',
+  Coach = 'Тренер',
+  Admin = 'Адміністратор',
 }

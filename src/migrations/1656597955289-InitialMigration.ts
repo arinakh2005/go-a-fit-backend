@@ -5,8 +5,9 @@ export class InitialMigration1656597955289 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
-        await queryRunner.query(`CREATE TYPE "public"."system_role_enum" AS ENUM('Athlete', 'Coach', 'Admin')`);
-        await queryRunner.query(`CREATE TYPE "public"."fit_product_availability_enum" AS ENUM('InStock', 'OutOfStock', 'SoonInStock')`);
+        await queryRunner.query(`CREATE TYPE "public"."system_role_enum" AS ENUM('Атлет', 'Тренер', 'Адміністратор')`);
+        await queryRunner.query(`CREATE TYPE "public"."fit_product_availability_enum" AS ENUM('В наявності', 'Товар відсутній', 'Незабаром з''явиться')`);
+        await queryRunner.query(`CREATE TYPE "public"."fit_product_category_enum" AS ENUM('Аксесуари', 'Одяг', 'Інше')`);
         await queryRunner.query(`CREATE TYPE "public"."notification_type_enum" AS ENUM('TrainingPackageExpiration', 'AdditionalTrainingApproval', 'AdditionalTrainingRejection', 'TrainingCancellation', 'FitCoinReceiving', 'ProductBuying')`);
         await queryRunner.query(`CREATE TYPE "public"."training_status_enum" AS ENUM('Planned', 'Completed', 'Cancelled')`);
         await queryRunner.query(`CREATE TYPE "public"."weekday_enum" AS ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')`);
@@ -26,7 +27,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                   "password" character varying(60) NOT NULL,
                                   "image_url" character varying,
                                   "group_id" uuid,
-                                  "system_role" "public"."system_role_enum" NOT NULL DEFAULT 'Athlete',
+                                  "system_role" "public"."system_role_enum" NOT NULL DEFAULT 'Атлет',
                                   "fit_cent_amount" integer DEFAULT 0,
                                   CONSTRAINT "PK_USER_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
@@ -56,9 +57,11 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                         "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                         "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                         "deleted_at" TIMESTAMP, 
-                                        "label" character varying(100) NOT NULL,
+                                        "title" character varying(100) NOT NULL,
                                         "description" character varying(500) NOT NULL,
-                                        "availability" "public"."fit_product_availability_enum" NOT NULL DEFAULT 'InStock',
+                                        "category" "public"."fit_product_category_enum" NOT NULL,
+                                        "image_url" character varying,
+                                        "availability" "public"."fit_product_availability_enum" NOT NULL DEFAULT 'В наявності',
                                         "quantity" integer DEFAULT 0,
                                         "cost" integer DEFAULT 0,
                                         CONSTRAINT "PK_FIT_PRODUCTS_01" PRIMARY KEY ("id"))`);
@@ -78,8 +81,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                             "deleted_at" TIMESTAMP, 
                                             "athlete_id" uuid,
                                             "group_id" uuid,
-                                            CONSTRAINT "PK_ATHLETES-GROUPS_SOLVING_01" PRIMARY KEY ("id")),
-                                            CONSTRAINT "PK_GROUPS-ATHLETES_SOLVING_01" PRIMARY KEY ("id"))`);
+                                            CONSTRAINT "PK_ATHLETES-GROUPS_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
             CREATE TABLE "notifications" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                                           "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
@@ -102,7 +104,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                           "group_id" uuid,
                                           "coach_id" uuid,
                                           "athlete_id" uuid,
-                                     CONSTRAINT "PK_SCHEDULE-ITEMS_01" PRIMARY KEY ("id"))`);
+                                          CONSTRAINT "PK_SCHEDULE-ITEMS_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
             CREATE TABLE "trainings" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                                      "created_at" TIMESTAMP NOT NULL DEFAULT now(), 

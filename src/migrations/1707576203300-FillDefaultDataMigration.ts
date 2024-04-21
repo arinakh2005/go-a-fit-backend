@@ -5,9 +5,9 @@ export class FillDefaultDataMigration1707576203300 implements MigrationInterface
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "system_role") 
-                                       VALUES('52db0d5e-c193-4bfb-ae89-e90c44651c56', now(), now(), null, 'Milena', 'Kholodnytska', '1978-08-08', 'milenakholodnytska@gmail.com', '+380955767084', 'milena', 'milena08', 'Coach');`);
+                                       VALUES('52db0d5e-c193-4bfb-ae89-e90c44651c56', now(), now(), null, 'Milena', 'Kholodnytska', '1978-08-08', 'milenakholodnytska@gmail.com', '+380955767084', 'milena', 'milena08', 'Тренер');`);
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "system_role") 
-                                       VALUES('adac1111-3dc1-4a8b-9361-5a778d01a9af', now(), now(), null, 'Arina', 'Kholodnytska', '2003-05-20', 'arinakholodnytska6@gmail.com', '+380686302468', 'arina', '$2b$12$GrSt75pmLfy3BLfUN0RMTujjEJZXLe9yC9dZce2c6w8eMQunzp/U2', 'Coach');`);
+                                       VALUES('adac1111-3dc1-4a8b-9361-5a778d01a9af', now(), now(), null, 'Arina', 'Kholodnytska', '2003-05-20', 'arinakholodnytska6@gmail.com', '+380686302468', 'arina', '$2b$12$GrSt75pmLfy3BLfUN0RMTujjEJZXLe9yC9dZce2c6w8eMQunzp/U2', 'Тренер');`);
 
         await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id") 
                                        VALUES('cf0d6d0e-354f-45ee-956f-045fc3a039c3', now(), now(), null, '52db0d5e-c193-4bfb-ae89-e90c44651c56');`);
@@ -22,17 +22,17 @@ export class FillDefaultDataMigration1707576203300 implements MigrationInterface
                                        VALUES('7378f992-c91e-48b7-98bc-1d84bf26affd', now(), now(), null, 'GR-03', 'Вт/Чт/Сб 9:00-10:00', '30d4eeb9-8c38-4ac2-8884-b1ffffa0928b');`);
 
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "image_url", "system_role", "fit_cent_amount") 
-                                       VALUES('962ff543-51ae-4379-bd2b-639b90f93409', now(), now(), null, 'Anton', 'Mazur', '1992-12-02', 'anton.m@gmail.com', '+380936172490', 'anton_m', 'anton1202', 'https://drive.google.com/thumbnail?id=1b16EXSIF13ZYxPSOAt6kXiVABaeSEY4X', 'Athlete', 50);`);
+                                       VALUES('962ff543-51ae-4379-bd2b-639b90f93409', now(), now(), null, 'Anton', 'Mazur', '1992-12-02', 'anton.m@gmail.com', '+380936172490', 'anton_m', 'anton1202', 'https://drive.google.com/thumbnail?id=1b16EXSIF13ZYxPSOAt6kXiVABaeSEY4X', 'Атлет', 50);`);
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "image_url", "system_role", "fit_cent_amount") 
-                                       VALUES('9afbf696-2428-448e-8cb8-8d953d01afe5', now(), now(), null, 'Halyna', 'Shevchenko', '1998-01-25', 'shevchenko_h@gmail.com', '+380934145347', 'halyna_shevchenko', 'shevchenko25', 'https://drive.google.com/thumbnail?id=1__0GtJU1E-4gyleOstJ1aq-T5JVXwRCW', 'Athlete', 150);`);
+                                       VALUES('9afbf696-2428-448e-8cb8-8d953d01afe5', now(), now(), null, 'Halyna', 'Shevchenko', '1998-01-25', 'shevchenko_h@gmail.com', '+380934145347', 'halyna_shevchenko', 'shevchenko25', 'https://drive.google.com/thumbnail?id=1__0GtJU1E-4gyleOstJ1aq-T5JVXwRCW', 'Атлет', 150);`);
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "image_url", "system_role", "fit_cent_amount") 
-                                       VALUES('6d2bb96b-77c3-48b3-afc1-e1cdf289ed4b', now(), now(), null, 'Nadiya', 'Honchar', '1997-03-17', 'honchar@gmail.com', '+380934457453', 'nadiya_1', 'Honchar123', 'https://drive.google.com/thumbnail?id=1buZlk694cR9My-AdclkdjTMxKxjag9jQ', 'Athlete', 0);`);
+                                       VALUES('6d2bb96b-77c3-48b3-afc1-e1cdf289ed4b', now(), now(), null, 'Nadiya', 'Honchar', '1997-03-17', 'honchar@gmail.com', '+380934457453', 'nadiya_1', 'Honchar123', 'https://drive.google.com/thumbnail?id=1buZlk694cR9My-AdclkdjTMxKxjag9jQ', 'Атлет', 0);`);
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "image_url", "system_role", "fit_cent_amount") 
-                                       VALUES('418e9f3a-6679-4190-925c-e2970ee37e01', now(), now(), null, 'Oleh', 'Pavlenko', '1989-04-21', 'pavlenko_oleg@gmail.com','+380739548457', 'pavlenko', 'pavlenko1', 'https://drive.google.com/thumbnail?id=12rQK4AGhrpQoH_SRxMGk6-CcYbVoQ77Q', 'Athlete', 175);`);
+                                       VALUES('418e9f3a-6679-4190-925c-e2970ee37e01', now(), now(), null, 'Oleh', 'Pavlenko', '1989-04-21', 'pavlenko_oleg@gmail.com','+380739548457', 'pavlenko', 'pavlenko1', 'https://drive.google.com/thumbnail?id=12rQK4AGhrpQoH_SRxMGk6-CcYbVoQ77Q', 'Атлет', 175);`);
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "image_url", "system_role", "fit_cent_amount") 
-                                       VALUES('deb3ccea-9612-4d1d-a420-39dbf4a9e0bd', now(), now(), null, 'Ivanna', 'Usenko', '2001-11-08', 'usenko@gmail.com', '+380736376433', 'ivanna', 'usenko2001', 'https://drive.google.com/thumbnail?id=1pd7h9YPX2-0a0EnxUsJilY4geWX3rPXN', 'Athlete', 300);`);
+                                       VALUES('deb3ccea-9612-4d1d-a420-39dbf4a9e0bd', now(), now(), null, 'Ivanna', 'Usenko', '2001-11-08', 'usenko@gmail.com', '+380736376433', 'ivanna', 'usenko2001', 'https://drive.google.com/thumbnail?id=1pd7h9YPX2-0a0EnxUsJilY4geWX3rPXN', 'Атлет', 300);`);
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "image_url", "system_role", "fit_cent_amount") 
-                                       VALUES('8d82e994-034a-4bab-a786-746c0815358e', now(), now(), null, 'Alla', 'Fomenko', '2000-09-26', 'fomenko@gmail.com', '+380914810995', 'alla.fomenko', 'fomenko777', 'https://drive.google.com/thumbnail?id=1wFC08i6eKS3E-zCz6Ad11CZsWja1m-LN', 'Athlete', 100);`);
+                                       VALUES('8d82e994-034a-4bab-a786-746c0815358e', now(), now(), null, 'Alla', 'Fomenko', '2000-09-26', 'fomenko@gmail.com', '+380914810995', 'alla.fomenko', 'fomenko777', 'https://drive.google.com/thumbnail?id=1wFC08i6eKS3E-zCz6Ad11CZsWja1m-LN', 'Атлет', 100);`);
 
         await queryRunner.query(`INSERT INTO public.athletes (id, created_at, updated_at, deleted_at, "user_id") 
                                        VALUES('5289cf9e-e4cf-479c-a17b-15ac019579a5', now(), now(), null, '962ff543-51ae-4379-bd2b-639b90f93409');`);
@@ -59,6 +59,31 @@ export class FillDefaultDataMigration1707576203300 implements MigrationInterface
                                        VALUES('3e6574fd-75b7-4c07-846e-81b6fe69ebe2', now(), now(), null, '6109d551-567b-4a15-b39e-a19fdad047f3', '7378f992-c91e-48b7-98bc-1d84bf26affd');`);
         await queryRunner.query(`INSERT INTO public."athletes-groups" (id, created_at, updated_at, deleted_at, "athlete_id", "group_id") 
                                        VALUES('501b6e82-7d96-4d6a-80dc-cce6003a689f', now(), now(), null, 'd2c83ef4-6ee4-41fa-945c-8c655223ee2d', 'c39cb1b3-9172-4b71-a2fe-2e0c748ec36b');`);
+
+        await queryRunner.query(`INSERT INTO public."fit-products" (id, created_at, updated_at, deleted_at, "title", "description", "category", "image_url", "availability", "quantity", "cost") 
+                                       VALUES('99f84b91-402d-407b-a484-b4659835702b', now(), now(), null, 'Спортивна водно-стійка сумка',
+                                        'Компактна та зручна сумка для зберігання спортивного спорядження та аксесуарів. Виготовлена з водонепроникного матеріалу з міцними швами.', 
+                                        'Аксесуари', null, 'В наявності', 5, 250);`);
+        await queryRunner.query(`INSERT INTO public."fit-products" (id, created_at, updated_at, deleted_at, "title", "description", "category", "image_url", "availability", "quantity", "cost") 
+                                       VALUES('e25b223f-fc82-4290-8a07-70bb44c3d43a', now(), now(), null, 'Килимок для фітнесу',
+                                        'Килимок призначений для занять фітнесом та іншими видами спорту. Виготовлений зі спеціального пінополіетилену, який не пропускає холод і тепло, не вбирає вологу.', 
+                                        'Аксесуари', null, 'В наявності', 12, 200);`);
+        await queryRunner.query(`INSERT INTO public."fit-products" (id, created_at, updated_at, deleted_at, "title", "description", "category", "image_url", "availability", "quantity", "cost") 
+                                       VALUES('abf27a79-078e-4e3f-91b9-5722408db3d4', now(), now(), null, 'Пляшка для води',
+                                        'Міцна, екологічна та легка пляшка, яка чудово підходить для поїздок, прогулянок або занять спортом.', 
+                                        'Аксесуари', null, 'В наявності', 7, 200);`);
+        await queryRunner.query(`INSERT INTO public."fit-products" (id, created_at, updated_at, deleted_at, "title", "description", "category", "image_url", "availability", "quantity", "cost") 
+                                       VALUES('6a7305b3-98cc-4e01-877b-d3ff29e1e25b', now(), now(), null, 'Спортивна кепка',
+                                        'Розмір кепки можна регулювати позаду за допомогою застібки.', 
+                                        'Аксесуари', null, 'Товар відсутній', 0, 150);`);
+        await queryRunner.query(`INSERT INTO public."fit-products" (id, created_at, updated_at, deleted_at, "title", "description", "category", "image_url", "availability", "quantity", "cost") 
+                                       VALUES('d6e4d61d-eb5a-427e-8344-330ebae178dd', now(), now(), null, 'Спортивна жіноча футболка',
+                                        'Легка, дихаюча та стильна - ідеальний вибір для тренувань.', 
+                                        'Одяг', null, 'В наявності', 2, 235);`);
+        await queryRunner.query(`INSERT INTO public."fit-products" (id, created_at, updated_at, deleted_at, "title", "description", "category", "image_url", "availability", "quantity", "cost") 
+                                       VALUES('1006c4cd-be69-414b-8015-168fbccf7a23', now(), now(), null, 'Обтяжувачі для ніг 1кг',
+                                        'Якщо ви хочете збільшити навантаження під час тренувань, але при цьому не перестаратися, спробуйте обважнювачі з регульованою вагою. Завдяки манжетам на липучці, обважнювачі міцно й комфортно кріпляться на зап''ясті або щиколотці, забезпечуючи додаткове навантаження.', 
+                                        'Інше', null, 'Незабаром з''явиться', 14, 175);`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

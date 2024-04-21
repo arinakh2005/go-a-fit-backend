@@ -1,5 +1,5 @@
 export enum FitProductAvailability {
-  InStock = 'InStock',
-  OutOfStock = 'OutOfStock',
-  SoonInStock = 'SoonInStock',
+  InStock = 'В наявності',
+  OutOfStock = 'Товар відсутній',
+  SoonInStock = 'Незабаром з\'явиться',
 }
