@@ -27,7 +27,10 @@ export class UserService extends BaseService {
   }
 
   public async findById(id: string): Promise<RetrieveUserDto> {
-    const user = await this.unitOfWork.userRepository.findById(id);
+    const user = await this.unitOfWork.userRepository.findOne({
+      where: { id },
+      relations: { athlete: { trainingPackages: { gymSubscription: true }}, coach: true },
+    });
     const retrievedUserData: RetrieveUserDto = {
       id: user.id,
       name: user.name,
@@ -82,7 +85,7 @@ export class UserService extends BaseService {
           user: createdUser,
           scheduleItems: [],
           trainingPackages: [],
-          groups: [],
+          athleteGroups: [],
           attendantTrainings: [],
         } as Athlete;
 

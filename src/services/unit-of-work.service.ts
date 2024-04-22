@@ -10,12 +10,15 @@ import { TrainingRepository } from '../repositories/training.repository';
 import { TrainingPackageRepository } from '../repositories/training-package.repository';
 import { ScheduleItemRepository } from '../repositories/schedule-item.repository';
 import { UserRepository } from '../repositories/user.repository';
+import { AthletesGroupRepository } from '../repositories/athletes-group.repository';
+import { GymSubscriptionRepository } from '../repositories/gym-subscription.repository';
 
 @Injectable()
 export class UnitOfWorkService {
     constructor(
         private readonly dataSource: DataSource,
         public readonly userRepository: UserRepository,
+        public readonly athletesGroupRepository: AthletesGroupRepository,
         public readonly athleteRepository: AthleteRepository,
         public readonly coachRepository: CoachRepository,
         public readonly fitOrderRepository: FitOrderRepository,
@@ -24,6 +27,7 @@ export class UnitOfWorkService {
         public readonly scheduleItemRepository: ScheduleItemRepository,
         public readonly notificationRepository: NotificationRepository,
         public readonly trainingRepository: TrainingRepository,
+        public readonly gymSubscriptionRepository: GymSubscriptionRepository,
         public readonly trainingPackageRepository: TrainingPackageRepository,
     ) {}
 

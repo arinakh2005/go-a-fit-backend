@@ -32,7 +32,7 @@ export class FillDefaultDataMigration1707576203300 implements MigrationInterface
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "image_url", "system_role", "fit_cent_amount") 
                                        VALUES('deb3ccea-9612-4d1d-a420-39dbf4a9e0bd', now(), now(), null, 'Ivanna', 'Usenko', '2001-11-08', 'usenko@gmail.com', '+380736376433', 'ivanna', 'usenko2001', 'https://drive.google.com/thumbnail?id=1pd7h9YPX2-0a0EnxUsJilY4geWX3rPXN', 'Атлет', 300);`);
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "image_url", "system_role", "fit_cent_amount") 
-                                       VALUES('8d82e994-034a-4bab-a786-746c0815358e', now(), now(), null, 'Alla', 'Fomenko', '2000-09-26', 'fomenko@gmail.com', '+380914810995', 'alla.fomenko', 'fomenko777', 'https://drive.google.com/thumbnail?id=1wFC08i6eKS3E-zCz6Ad11CZsWja1m-LN', 'Атлет', 100);`);
+                                       VALUES('8d82e994-034a-4bab-a786-746c0815358e', now(), now(), null, 'Alla', 'Fomenko', '2000-09-26', 'fomenko@gmail.com', '+380914810995', 'alla.fomenko', '$2b$12$GrSt75pmLfy3BLfUN0RMTujjEJZXLe9yC9dZce2c6w8eMQunzp/U2', 'https://drive.google.com/thumbnail?id=1wFC08i6eKS3E-zCz6Ad11CZsWja1m-LN', 'Атлет', 100);`);
 
         await queryRunner.query(`INSERT INTO public.athletes (id, created_at, updated_at, deleted_at, "user_id") 
                                        VALUES('5289cf9e-e4cf-479c-a17b-15ac019579a5', now(), now(), null, '962ff543-51ae-4379-bd2b-639b90f93409');`);
@@ -84,6 +84,28 @@ export class FillDefaultDataMigration1707576203300 implements MigrationInterface
                                        VALUES('1006c4cd-be69-414b-8015-168fbccf7a23', now(), now(), null, 'Обтяжувачі для ніг 1кг',
                                         'Якщо ви хочете збільшити навантаження під час тренувань, але при цьому не перестаратися, спробуйте обважнювачі з регульованою вагою. Завдяки манжетам на липучці, обважнювачі міцно й комфортно кріпляться на зап''ясті або щиколотці, забезпечуючи додаткове навантаження.', 
                                         'Інше', 'https://drive.google.com/thumbnail?id=1fWd_r_ktiPMByqsRHZAwpw68AvfByPhY', 'Незабаром з''явиться', 14, 175);`);
+
+        await queryRunner.query(`INSERT INTO public."gym-subscriptions" (id, created_at, updated_at, deleted_at, "title", "description", "activity_type", "available_trainings") 
+                                       VALUES('975ac6c8-5ac7-401e-bdd3-6080f8a0047b', now(), now(), null, 'Аматорський', '', 'Фітнес', 4);`);
+        await queryRunner.query(`INSERT INTO public."gym-subscriptions" (id, created_at, updated_at, deleted_at, "title", "description", "activity_type", "available_trainings") 
+                                       VALUES('c8afe065-c2f0-4e92-9251-87cbc932a7ed', now(), now(), null, 'Класичний ', '', 'Фітнес', 8);`);
+        await queryRunner.query(`INSERT INTO public."gym-subscriptions" (id, created_at, updated_at, deleted_at, "title", "description", "activity_type", "available_trainings") 
+                                       VALUES('d7e67d05-59c6-4c1c-bc05-9ce888f66384', now(), now(), null, 'Інтенсивний', '', 'Фітнес', 12);`);
+        await queryRunner.query(`INSERT INTO public."gym-subscriptions" (id, created_at, updated_at, deleted_at, "title", "description", "activity_type", "available_trainings") 
+                                       VALUES('501b6e82-7d96-4d6a-80dc-cce6003a689f', now(), now(), null, 'Акробатика (діти 8-10р. PRO)', '', 'Акробатика', 12);`);
+        await queryRunner.query(`INSERT INTO public."gym-subscriptions" (id, created_at, updated_at, deleted_at, "title", "description", "activity_type", "available_trainings") 
+                                       VALUES('b3ea76f0-915d-4e8a-957f-57ee354be28e', now(), now(), null, 'Акробатика (діти 11-14р. PRO)', '', 'Акробатика', 12);`);
+        await queryRunner.query(`INSERT INTO public."gym-subscriptions" (id, created_at, updated_at, deleted_at, "title", "description", "activity_type", "available_trainings") 
+                                       VALUES('12ccf679-4dff-4f49-90ed-61b2a8684401', now(), now(), null, 'Акробатика (діти 8-10р.)', '', 'Акробатика', 12);`);
+        await queryRunner.query(`INSERT INTO public."gym-subscriptions" (id, created_at, updated_at, deleted_at, "title", "description", "activity_type", "available_trainings") 
+                                       VALUES('b3a09d27-8629-4949-919e-816151645f4e', now(), now(), null, 'Акробатика (діти 11-14р.)', '', 'Акробатика', 12);`);
+
+        await queryRunner.query(`INSERT INTO public."training-packages" (id, created_at, updated_at, deleted_at, "beginning_date", "expiration_date", "trainings_amount", "used_trainings_amount", "missed_trainings_amount", "athlete_id", "gym_subscription_id")
+                                       VALUES('2fa89724-a884-4fa6-9edd-400f6745c7a8', now(), now(), null, '2024-03-25', '2024-04-25', 12, 10, 1, 'd2c83ef4-6ee4-41fa-945c-8c655223ee2d', 'd7e67d05-59c6-4c1c-bc05-9ce888f66384');`);
+        await queryRunner.query(`INSERT INTO public."training-packages" (id, created_at, updated_at, deleted_at, "beginning_date", "expiration_date", "trainings_amount", "used_trainings_amount", "missed_trainings_amount", "athlete_id", "gym_subscription_id")
+                                       VALUES('487d7352-571c-4514-9afd-34730be84447', now(), now(), null, '2024-03-19', '2024-04-19', 8, 8, 0, '6edc4cec-d48a-4ee3-a1ee-dcb780eb89a8', 'c8afe065-c2f0-4e92-9251-87cbc932a7ed');`);
+        await queryRunner.query(`INSERT INTO public."training-packages" (id, created_at, updated_at, deleted_at, "beginning_date", "expiration_date", "trainings_amount", "used_trainings_amount", "missed_trainings_amount", "athlete_id", "gym_subscription_id")
+                                       VALUES('d10b00bd-ddfd-4731-bc74-bde1eeea8c91', now(), now(), null, '2024-03-15', '2024-04-15', 4, 4, 0, '86067fb3-81cf-4765-b527-8b72ba2798e5', '975ac6c8-5ac7-401e-bdd3-6080f8a0047b');`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
@@ -109,6 +131,19 @@ export class FillDefaultDataMigration1707576203300 implements MigrationInterface
             'c39cb1b3-9172-4b71-a2fe-2e0c748ec36b', 
             '8a02bd73-d34e-4f7d-a26a-deb98565b6fd', 
             '7378f992-c91e-48b7-98bc-1d84bf26affd',
+        );`);
+        await queryRunner.query(`DELETE FROM "training-packages" WHERE id IN(
+            '2fa89724-a884-4fa6-9edd-400f6745c7a8', 
+            '487d7352-571c-4514-9afd-34730be84447', 
+            'd10b00bd-ddfd-4731-bc74-bde1eeea8c91',
+        );`);
+        await queryRunner.query(`DELETE FROM "gym-subscriptions" WHERE id IN(
+            '975ac6c8-5ac7-401e-bdd3-6080f8a0047b', 
+            'c8afe065-c2f0-4e92-9251-87cbc932a7ed', 
+            'd7e67d05-59c6-4c1c-bc05-9ce888f66384',
+            'b3ea76f0-915d-4e8a-957f-57ee354be28e',
+            '12ccf679-4dff-4f49-90ed-61b2a8684401',
+            'b3a09d27-8629-4949-919e-816151645f4e',
         );`);
     }
 }

@@ -38,6 +38,10 @@ import { UserService } from './services/user.service';
 import { JwtModule } from '@nestjs/jwt';
 import { GoogleDriveModule } from 'nestjs-googledrive-upload';
 import { AuthController } from './auth/auth.controller';
+import { AthletesGroupRepository } from './repositories/athletes-group.repository';
+import { GymSubscriptionService } from './services/gym-subscription.service';
+import { GymSubscriptionRepository } from './repositories/gym-subscription.repository';
+import { GymSubscriptionsController } from './controllers/gym-subscriptions.controller';
 
 const controllers = [
   AppController,
@@ -52,6 +56,7 @@ const controllers = [
   TrainingPackagesController,
   TrainingsController,
   UsersController,
+  GymSubscriptionsController,
 ];
 
 const services = [
@@ -67,10 +72,12 @@ const services = [
   ScheduleItemService,
   TrainingService,
   TrainingPackageService,
+  GymSubscriptionService,
 ];
 
 const repositories = [
   UserRepository,
+  AthletesGroupRepository,
   AthleteRepository,
   CoachRepository,
   FitOrderRepository,
@@ -80,6 +87,7 @@ const repositories = [
   ScheduleItemRepository,
   TrainingRepository,
   TrainingPackageRepository,
+  GymSubscriptionRepository,
 ];
 
 @Module({
