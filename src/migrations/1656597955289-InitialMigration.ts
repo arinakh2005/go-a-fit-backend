@@ -8,6 +8,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`CREATE TYPE "public"."system_role_enum" AS ENUM('Атлет', 'Тренер', 'Адміністратор')`);
         await queryRunner.query(`CREATE TYPE "public"."fit_product_availability_enum" AS ENUM('В наявності', 'Товар відсутній', 'Незабаром з''явиться')`);
         await queryRunner.query(`CREATE TYPE "public"."fit_product_category_enum" AS ENUM('Аксесуари', 'Одяг', 'Інше')`);
+        await queryRunner.query(`CREATE TYPE "public"."fit_order_status_enum" AS ENUM('Прийнято', 'В очікуванні', 'Оброблено', 'Виконано', 'Скасовано', 'Відхилено')`);
         await queryRunner.query(`CREATE TYPE "public"."notification_type_enum" AS ENUM('TrainingPackageExpiration', 'AdditionalTrainingApproval', 'AdditionalTrainingRejection', 'TrainingCancellation', 'FitCoinReceiving', 'ProductBuying')`);
         await queryRunner.query(`CREATE TYPE "public"."weekday_enum" AS ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')`);
         await queryRunner.query(`CREATE TYPE "public"."occasion_type" AS ENUM('Групове заняття', 'Індивідуальне заняття', 'Вихідний', 'Змагання', 'Інше')`);
@@ -50,8 +51,10 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                        "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                        "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                        "deleted_at" TIMESTAMP, 
+                                       "status" "public"."fit_order_status_enum" NOT NULL DEFAULT 'В очікуванні',
                                        "comment" character varying(500),
                                        "user_id" uuid,
+                                       "order_products" json,
                                        CONSTRAINT "PK_FIT_ORDERS_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
             CREATE TABLE "fit-products" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -175,6 +178,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "training-packages" DROP CONSTRAINT "FK_TRAINING_PACKAGES-GYM_SUBSCRIPTIONS_01"`);
         await queryRunner.query(`DROP TYPE "public"."system_role_enum"`);
         await queryRunner.query(`DROP TYPE "public"."fit_product_availability_enum"`);
+        await queryRunner.query(`DROP TYPE "public"."fit_order_status_enum"`);
         await queryRunner.query(`DROP TYPE "public"."notification_type_enum"`);
         await queryRunner.query(`DROP TYPE "public"."weekday_enum"`);
         await queryRunner.query(`DROP TYPE "public"."occasion_type"`);

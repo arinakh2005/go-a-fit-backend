@@ -30,6 +30,6 @@ export class FitProduct extends BaseEntity {
   @Column({ name: 'cost', type: 'int', default: 0 })
   public cost: number;
 
-  @ManyToMany(() => FitOrder, (fitOrder) => fitOrder.fitProducts)
+  @ManyToMany(() => FitOrder, (fitOrder) => fitOrder.fitOrderProducts)
   public orders: FitOrder[];
 }

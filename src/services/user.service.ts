@@ -29,7 +29,11 @@ export class UserService extends BaseService {
   public async findById(id: string): Promise<RetrieveUserDto> {
     const user = await this.unitOfWork.userRepository.findOne({
       where: { id },
-      relations: { athlete: { trainingPackages: { gymSubscription: true }}, coach: true },
+      relations: {
+        fitOrders: true,
+        athlete: { trainingPackages: { gymSubscription: true }},
+        coach: true,
+      },
     });
     const retrievedUserData: RetrieveUserDto = {
       id: user.id,

@@ -13,17 +13,17 @@ export class ScheduleItemUpsertDto {
   public title?: string;
 
   @IsEnum(OccasionType)
-  occasionType: OccasionType;
+  public occasionType: OccasionType;
 
   @IsBoolean()
-  isAllDay?: boolean;
+  public isAllDay?: boolean;
 
   @IsUUID()
-  coachId?: string;
+  public coachId?: string;
 
   @IsUUID()
-  athleteId?: string;
+  public athleteId?: string;
 
   @IsUUID()
-  groupId?: string;
+  public groupId?: string;
 }
