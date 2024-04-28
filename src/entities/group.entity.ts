@@ -13,6 +13,9 @@ export class Group extends BaseEntity {
   @Column({ name: 'description', type: 'varchar', length: 100 })
   public description: string;
 
+  @Column({ name: 'color', type: 'varchar', length: 15 })
+  public color: string;
+
   @ManyToOne(() => Coach, (coach) => coach.groups)
   @JoinColumn({ name: 'coach_id' })
   public coach: Coach;

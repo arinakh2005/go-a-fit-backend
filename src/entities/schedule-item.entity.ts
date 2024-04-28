@@ -4,6 +4,7 @@ import { Group } from './group.entity';
 import { OccasionType } from '../enums/occasion-type';
 import { Coach } from './coach.entity';
 import { Athlete } from './athlete.entity';
+import { OccasionStatus } from '../enums/occasion-status.enum';
 
 @Entity({ name: 'schedule-items' })
 export class ScheduleItem extends BaseEntity {
@@ -18,6 +19,9 @@ export class ScheduleItem extends BaseEntity {
 
   @Column({ name: 'occasion_type', type: 'enum', enum: OccasionType })
   public occasionType: OccasionType;
+
+  @Column({ name: 'occasion_status', type: 'enum', enum: OccasionStatus })
+  public occasionStatus: OccasionStatus;
 
   @Column({ name: 'all_day', type: 'boolean', default: false })
   public isAllDay: boolean;

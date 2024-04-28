@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
-import { TrainingStatus } from '../enums/training-status.enum';
+import { OccasionStatus } from '../enums/occasion-status.enum';
 import { Group } from './group.entity';
 import { Coach } from './coach.entity';
 import { Athlete } from './athlete.entity';
@@ -13,8 +13,8 @@ export class Training extends BaseEntity {
   @Column({ name: 'end_at', type: 'date' })
   public endAt: Date;
 
-  @Column({ name: 'status', type: 'enum', enum: TrainingStatus, default: TrainingStatus.Planned })
-  public status: TrainingStatus;
+  @Column({ name: 'status', type: 'enum', enum: OccasionStatus, default: OccasionStatus.Planned })
+  public status: OccasionStatus;
 
   @ManyToOne(() => Group, (group) => group.trainings)
   @JoinColumn({ name: 'group_id' })

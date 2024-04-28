@@ -9,9 +9,9 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`CREATE TYPE "public"."fit_product_availability_enum" AS ENUM('В наявності', 'Товар відсутній', 'Незабаром з''явиться')`);
         await queryRunner.query(`CREATE TYPE "public"."fit_product_category_enum" AS ENUM('Аксесуари', 'Одяг', 'Інше')`);
         await queryRunner.query(`CREATE TYPE "public"."notification_type_enum" AS ENUM('TrainingPackageExpiration', 'AdditionalTrainingApproval', 'AdditionalTrainingRejection', 'TrainingCancellation', 'FitCoinReceiving', 'ProductBuying')`);
-        await queryRunner.query(`CREATE TYPE "public"."training_status_enum" AS ENUM('Planned', 'Completed', 'Cancelled')`);
         await queryRunner.query(`CREATE TYPE "public"."weekday_enum" AS ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')`);
-        await queryRunner.query(`CREATE TYPE "public"."occasion_type" AS ENUM('GroupTraining', 'PersonalTraining', 'Holiday', 'Competition', 'Other')`);
+        await queryRunner.query(`CREATE TYPE "public"."occasion_type" AS ENUM('Групове заняття', 'Індивідуальне заняття', 'Вихідний', 'Змагання', 'Інше')`);
+        await queryRunner.query(`CREATE TYPE "public"."occasion_status" AS ENUM('Заплановано', 'Завершено', 'Відмінено')`);
         await queryRunner.query(`CREATE TYPE "public"."activity_type" AS ENUM('Фітнес', 'Стретчинг', 'Акробатика', 'Аеробіка', 'Гімнастика', 'Пілатес', 'Інша активність')`);
         await queryRunner.query(`
             CREATE TABLE "users" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -74,6 +74,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                    "deleted_at" TIMESTAMP, 
                                    "title" character varying(50) NOT NULL,
                                    "description" character varying(100) DEFAULT '',
+                                   "color" character varying(15) DEFAULT '',
                                    "coach_id" uuid,
                                    CONSTRAINT "PK_GROUPS_01" PRIMARY KEY ("id"))`);
       await queryRunner.query(`
@@ -102,6 +103,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                           "end" character varying(20) NOT NULL,
                                           "title" character varying(100),
                                           "occasion_type" "public"."occasion_type" NOT NULL,
+                                          "occasion_status" "public"."occasion_status" NOT NULL DEFAULT 'Заплановано',
                                           "all_day" BOOLEAN DEFAULT FALSE,
                                           "group_id" uuid,
                                           "coach_id" uuid,
@@ -114,7 +116,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                      "deleted_at" TIMESTAMP, 
                                      "start_at" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                                      "end_at" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                                     "status" "public"."training_status_enum" NOT NULL DEFAULT 'Planned',
+                                     "status" "public"."occasion_status" NOT NULL DEFAULT 'Заплановано',
                                      "group_id" uuid,
                                      "conducted_coach_id" uuid,
                                      CONSTRAINT "PK_TRAININGS_01" PRIMARY KEY ("id"))`);
@@ -174,9 +176,9 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`DROP TYPE "public"."system_role_enum"`);
         await queryRunner.query(`DROP TYPE "public"."fit_product_availability_enum"`);
         await queryRunner.query(`DROP TYPE "public"."notification_type_enum"`);
-        await queryRunner.query(`DROP TYPE "public"."training_status_enum"`);
         await queryRunner.query(`DROP TYPE "public"."weekday_enum"`);
         await queryRunner.query(`DROP TYPE "public"."occasion_type"`);
+        await queryRunner.query(`DROP TYPE "public"."occasion_status"`);
         await queryRunner.query(`DROP TYPE "public"."activity_type"`);
         await queryRunner.query(`DROP TABLE "users"`);
         await queryRunner.query(`DROP TABLE "athletes"`);
