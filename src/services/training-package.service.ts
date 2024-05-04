@@ -12,6 +12,10 @@ export class TrainingPackageService extends BaseService {
   public async getCurrentUserPackage(userId: string): Promise<ActiveUserTrainingPackageDto | null> {
     const userPackages = await this.unitOfWork.trainingPackageRepository.find({
       where: { athlete: { user: { id: userId }}},
+      relations: {
+        athlete: { user: true },
+        gymSubscription: true,
+      },
     });
 
     const latestPackage = userPackages.sort((trainingPackage, trainingPackageToCompare) =>

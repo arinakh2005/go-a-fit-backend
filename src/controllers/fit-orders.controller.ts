@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { FitOrderService } from '../services/fit-order.service';
 import { FitOrder } from '../entities/fit-order.entity';
 import { FitOrderUpsertDto } from '../dtos/fit-order/fit-order-upsert.dto';
+import { RetrieveUserDto } from '../dtos/user/retrieve-user.dto';
 
 @ApiTags('fit-orders')
 @Controller('api/fit-orders')
@@ -24,7 +25,7 @@ export class FitOrdersController {
   @Post()
   public async create(
     @Body() fitOrderUpsertDto: FitOrderUpsertDto,
-  ): Promise<FitOrder> {
+  ): Promise<RetrieveUserDto> {
     return await this.fitOrderService.create(fitOrderUpsertDto);
   }
 

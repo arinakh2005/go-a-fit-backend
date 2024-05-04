@@ -44,6 +44,10 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                     "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                     "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                     "deleted_at" TIMESTAMP, 
+                                    "activities" character varying(200) NOT NULL,
+                                    "education" character varying(500),
+                                    "rewards" character varying(500),
+                                    "motto" character varying(200),
                                     "user_id" uuid,
                                     CONSTRAINT "PK_COACHES_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
@@ -80,7 +84,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                    "color" character varying(15) DEFAULT '',
                                    "coach_id" uuid,
                                    CONSTRAINT "PK_GROUPS_01" PRIMARY KEY ("id"))`);
-      await queryRunner.query(`
+        await queryRunner.query(`
             CREATE TABLE "athletes-groups" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                                             "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
                                             "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 

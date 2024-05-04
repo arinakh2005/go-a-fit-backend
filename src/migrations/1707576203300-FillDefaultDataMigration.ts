@@ -5,14 +5,30 @@ export class FillDefaultDataMigration1707576203300 implements MigrationInterface
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "system_role") 
-                                       VALUES('52db0d5e-c193-4bfb-ae89-e90c44651c56', now(), now(), null, 'Мілена', 'Холодницька', '1978-08-08', 'milenakholodnytska@gmail.com', '+380955767084', 'milena', 'milena08', 'Тренер');`);
+                                       VALUES('52db0d5e-c193-4bfb-ae89-e90c44651c56', now(), now(), null, 'Тетяна', 'Лисенко', '1978-08-08', 'tetyanalysenko@gmail.com', '+380951234567', 'tanyaL', '$2b$12$WZaQeYB3jw90OZ3N.Yve2O.z/yDd1ovuJcIyHoyOxThj27zCV/rnG', 'Тренер');`);
         await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "system_role") 
                                        VALUES('adac1111-3dc1-4a8b-9361-5a778d01a9af', now(), now(), null, 'Аріна', 'Холодницька', '2003-05-20', 'arinakholodnytska6@gmail.com', '+380686302468', 'arina', '$2b$12$GrSt75pmLfy3BLfUN0RMTujjEJZXLe9yC9dZce2c6w8eMQunzp/U2', 'Тренер');`);
+        await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "system_role") 
+                                       VALUES('3a6d458d-7d79-4be7-9ef6-2b56af1a843b', now(), now(), null, 'Василь', 'Петренко', '1990-12-15', 'vasyapetrenko@gmail.com', '+380991234567', 'vasya', '$2b$12$Pvp8w7nWuM6/OFrqzGvO7.Q1wOuqKEEoZLnzvoDNNTnKhwXxD.mY6', 'Тренер');`);
+        await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "system_role") 
+                                       VALUES('f8e4c712-0a95-4e9c-8ef2-4e1b8722c3e2', now(), now(), null, 'Оксана', 'Мельник', '1985-07-25', 'oksana.melnyk@gmail.com', '+380686302468', 'oksana', '$2b$12$FCH1XqexfwwSWsZM9C5Vg.j6s65WoyR6Yr3MPZ1omMP6T0Gz9Teje', 'Тренер');`);
+        await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "system_role") 
+                                       VALUES('c4415b18-b4e6-4780-bf92-89e7b8fc0c78', now(), now(), null, 'Іван', 'Ситник', '1997-03-10', 'ivansutnyk@gmail.com', '+380977654321', 'ivan', '$2b$12$u/mB1OnZjxxEgpkbptBcGugjzLX.vMD8CDmOsD6d7QpOY/JEvk8m6', 'Тренер');`);
+        await queryRunner.query(`INSERT INTO public.users (id, created_at, updated_at, deleted_at, "name", "surname", "date_of_birth", "email", "phone", "username", "password", "system_role") 
+                                       VALUES('10f8572b-8ecf-4d5a-af79-90a300319a8f', now(), now(), null, 'Олексій', 'Ковальчук', '1995-11-30', 'oleksii.kovalchuk@gmail.com', '+380505050505', 'oleksii', '$2b$12$tZqN7hNBv1opQ4Lbs1YPwOMXW1aLYJ5adRZDvCzzWwMz/uI7iqj1q', 'Тренер');`);
 
-        await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id") 
-                                       VALUES('cf0d6d0e-354f-45ee-956f-045fc3a039c3', now(), now(), null, '52db0d5e-c193-4bfb-ae89-e90c44651c56');`);
-        await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id") 
-                                       VALUES('30d4eeb9-8c38-4ac2-8884-b1ffffa0928b', now(), now(), null, 'adac1111-3dc1-4a8b-9361-5a778d01a9af');`);
+        await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id", "activities", "education", "rewards", "motto") 
+                                       VALUES('cf0d6d0e-354f-45ee-956f-045fc3a039c3', now(), now(), null, '52db0d5e-c193-4bfb-ae89-e90c44651c56', 'Дитячий фітнес, Аеробіка', 'Бердянський державний педагогічний університет.', 'Майстер спорту України зі спортивної аеробіки.', 'Працюйте над собою сьогодні, щоб бути кращим завтра.');`);
+        await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id", "activities", "education", "rewards", "motto") 
+                                       VALUES('30d4eeb9-8c38-4ac2-8884-b1ffffa0928b', now(), now(), null, 'adac1111-3dc1-4a8b-9361-5a778d01a9af', 'Акробатика, Гімнастика', 'Черкаський національний університет імені Богдана Хмельницького', 'Майстер спорту України зі спортивної гімнастики.', 'Біль, який ви відчуваєте сьогодні, стане силою, яку ви відчуєте завтра.');`);
+        await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id", "activities", "education", "rewards", "motto") 
+                                       VALUES('0ef5e3c2-2bab-4c6f-821c-c2435ba2de03', now(), now(), null, '3a6d458d-7d79-4be7-9ef6-2b56af1a843b', 'Акробатика', 'Львівський національний університет фізичної культури.', '', 'Віра у себе - ключ до успіху.');`);
+        await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id", "activities", "education", "rewards", "motto") 
+                                       VALUES('1b2c195b-dd40-4e13-b996-d40cabe3d15a', now(), now(), null, 'f8e4c712-0a95-4e9c-8ef2-4e1b8722c3e2', 'Пілатес, Фітнес', 'Одеський національний університет імені І.І. Мечникова.', 'Кандидат у майстри спорту з легкої атлетики', 'Прагнення до досягнень створює безмежні можливості.');`);
+        await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id", "activities", "education", "rewards", "motto") 
+                                       VALUES('0bddf48e-85ea-42c3-92cd-821c5236ea5b', now(), now(), null, 'c4415b18-b4e6-4780-bf92-89e7b8fc0c78', 'Акробатика, Гімнастика', 'Харківський національний університет імені В.Н. Каразіна.', '', 'Людина може досягти всього, що здатна осягнути і прийняти розумом.');`);
+        await queryRunner.query(`INSERT INTO public.coaches (id, created_at, updated_at, deleted_at, "user_id", "activities", "education", "rewards", "motto") 
+                                       VALUES('ff311e1d-bd3c-4d4b-9d85-dfc3f3eed8ac', now(), now(), null, '10f8572b-8ecf-4d5a-af79-90a300319a8f', 'Єдиноборства, Бойові програми', 'Київський національний університет імені Тараса Шевченка.', 'Багаторазовий чемпіон України та призер Європи з рукопашного бою', 'Практика приводить до досконалості');`);
 
         await queryRunner.query(`INSERT INTO public.groups (id, created_at, updated_at, deleted_at, "title", "description", "color", "coach_id") 
                                        VALUES('c39cb1b3-9172-4b71-a2fe-2e0c748ec36b', now(), now(), null, 'АК-01', 'Пн/Ср/Пт 17:00-18:30', '#bfcfff', 'cf0d6d0e-354f-45ee-956f-045fc3a039c3');`);
