@@ -19,7 +19,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useGlobalInterceptors(new ResponseInterceptor());
   app.enableCors({
-    origin: 'http://localhost:4200',
+    origin: ['http://localhost:4200', 'https://go-a-fit.vercel.app'],
     credentials: true,
   });
 
