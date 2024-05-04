@@ -3,6 +3,7 @@ import { GoogleDriveConfig } from 'nestjs-googledrive-upload';
 
 export const typeOrmOptions = {
   type: 'postgres',
+  url: process.env.DATABASE_URL,
   host: 'localhost',
   port: 5432,
   password: 'admin',

@@ -42,6 +42,7 @@ import { AthletesGroupRepository } from './repositories/athletes-group.repositor
 import { GymSubscriptionService } from './services/gym-subscription.service';
 import { GymSubscriptionRepository } from './repositories/gym-subscription.repository';
 import { GymSubscriptionsController } from './controllers/gym-subscriptions.controller';
+import { ConfigModule } from '@nestjs/config';
 
 const controllers = [
   AppController,
@@ -92,6 +93,7 @@ const repositories = [
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     GoogleDriveModule.register(
       config.google,
       GOOGLE_API_FOLDER_ID,
