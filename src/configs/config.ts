@@ -3,15 +3,15 @@ import { GoogleDriveConfig } from 'nestjs-googledrive-upload';
 
 export const typeOrmOptions = {
   type: 'postgres',
-  url: process.env.DATABASE_URL,
-  host: 'localhost',
-  port: 5432,
-  password: 'admin',
-  username: 'postgres',
+  url: process.env.POSTGRES_URL,
+  host: process.env.POSTGRES_HOST || 'localhost',
+  port: process.env.POSTGRES_PORT || 5432,
+  password: process.env.POSTGRES_PASSWORD || 'admin',
+  username: process.env.POSTGRES_USERNAME || 'postgres',
   entities: [`${__dirname}/../entities/*.entity{.ts,.js}`],
   migrations: [`${__dirname}/../migrations/*{.ts,.js}`],
   migrationsRun: true,
-  database: 'go-a-fit',
+  database: process.env.POSTGRES_DATABASE || 'go-a-fit',
   synchronize: false,
   logging: true,
 } as TypeOrmModuleOptions;
