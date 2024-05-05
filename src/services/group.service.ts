@@ -15,10 +15,12 @@ export class GroupService extends BaseService {
     });
   }
 
-  public async findCoachGroupsById(id: string): Promise<Group[]> {
+  public async findCoachGroupsByCoachId(id: string): Promise<Group[]> {
     return await this.unitOfWork.groupRepository.find({
       where: { coach: { user: { id }}},
-      relations: { coach: { user: true }},
+      relations: {
+        athleteGroups: { athlete: true },
+      },
     });
   }
 }

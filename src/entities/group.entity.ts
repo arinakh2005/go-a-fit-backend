@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Coach } from './coach.entity';
 import { Training } from './training.entity';
@@ -20,7 +20,7 @@ export class Group extends BaseEntity {
   @JoinColumn({ name: 'coach_id' })
   public coach: Coach;
 
-  @ManyToMany(() => AthleteGroup, (athleteGroup) => athleteGroup.group)
+  @OneToMany(() => AthleteGroup, (athleteGroup) => athleteGroup.group)
   public athleteGroups: AthleteGroup[];
 
   @OneToMany(() => ScheduleItem, (schedule) => schedule.group)

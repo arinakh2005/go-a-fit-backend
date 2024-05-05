@@ -19,6 +19,6 @@ export class GroupsController {
   public async getCoachGroupsById(
     @Query('id') id: string,
   ): Promise<Group[]> {
-    return await this.groupService.findCoachGroupsById(id);
+    return await this.groupService.findCoachGroupsByCoachId(id);
   }
 }

@@ -18,7 +18,7 @@ export class Athlete extends BaseEntity {
   @OneToMany(() => TrainingPackage, (trainingPackage) => trainingPackage.athlete)
   public trainingPackages: TrainingPackage[];
 
-  @ManyToMany(() => AthleteGroup, (athleteGroup) => athleteGroup.athlete)
+  @OneToMany(() => AthleteGroup, (athleteGroup) => athleteGroup.athlete)
   public athleteGroups: AthleteGroup[];
 
   @ManyToMany(() => Training, (training) => training.attendantAthletes)
