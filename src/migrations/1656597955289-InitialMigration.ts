@@ -28,7 +28,6 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                   "username" character varying(50) NOT NULL,
                                   "password" character varying(60) NOT NULL,
                                   "image_url" character varying,
-                                  "group_id" uuid,
                                   "system_role" "public"."system_role_enum" NOT NULL DEFAULT 'Атлет',
                                   "fit_cent_amount" integer DEFAULT 0,
                                   CONSTRAINT "PK_USER_01" PRIMARY KEY ("id"))`);
@@ -117,16 +116,18 @@ export class InitialMigration1656597955289 implements MigrationInterface {
                                           "athlete_id" uuid,
                                           CONSTRAINT "PK_SCHEDULE-ITEMS_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
-            CREATE TABLE "trainings" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-                                     "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
-                                     "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
-                                     "deleted_at" TIMESTAMP, 
-                                     "start_at" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                                     "end_at" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                                     "status" "public"."occasion_status" NOT NULL DEFAULT 'Заплановано',
-                                     "group_id" uuid,
-                                     "conducted_coach_id" uuid,
-                                     CONSTRAINT "PK_TRAININGS_01" PRIMARY KEY ("id"))`);
+            CREATE TABLE "users-attendances" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+                                             "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
+                                             "updated_at" TIMESTAMP NOT NULL DEFAULT now(), 
+                                             "deleted_at" TIMESTAMP, 
+                                             "start_at" character varying(20) NOT NULL,
+                                             "end_at" character varying(20) NOT NULL,
+                                             "visited" BOOLEAN DEFAULT FALSE,
+                                             "working_off_allowed" BOOLEAN DEFAULT FALSE,
+                                             "group_id" uuid DEFAULT NULL,
+                                             "conducted_coach_id" uuid DEFAULT NULL,
+                                             "athlete_id" uuid,
+                                             CONSTRAINT "PK_USER-ATTENDANCES_01" PRIMARY KEY ("id"))`);
         await queryRunner.query(`
             CREATE TABLE "gym-subscriptions" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                                               "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
@@ -161,7 +162,8 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "schedule-items" ADD CONSTRAINT "FK_SCHEDULE-ITEMS-GROUPS_01" FOREIGN KEY ("group_id") REFERENCES "groups"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "schedule-items" ADD CONSTRAINT "FK_SCHEDULE-ITEMS-COACH_01" FOREIGN KEY ("coach_id") REFERENCES "coaches"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "schedule-items" ADD CONSTRAINT "FK_SCHEDULE-ITEMS-ATHLETE_01" FOREIGN KEY ("athlete_id") REFERENCES "athletes"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "trainings" ADD CONSTRAINT "FK_TRAININGS-COACHES_01" FOREIGN KEY ("conducted_coach_id") REFERENCES "coaches"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "users-attendances" ADD CONSTRAINT "FK_USERS-ATTENDANCES-COACHES_01" FOREIGN KEY ("conducted_coach_id") REFERENCES "coaches"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "users-attendances" ADD CONSTRAINT "FK_USERS-ATTENDANCES-ATHLETES_01" FOREIGN KEY ("athlete_id") REFERENCES "athletes"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "training-packages" ADD CONSTRAINT "FK_TRAINING_PACKAGES-ATHLETES_01" FOREIGN KEY ("athlete_id") REFERENCES "athletes"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "training-packages" ADD CONSTRAINT "FK_TRAINING_PACKAGES-GYM_SUBSCRIPTIONS_01" FOREIGN KEY ("gym_subscription_id") REFERENCES "gym-subscriptions"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
     }
@@ -177,7 +179,8 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "schedule-items" DROP CONSTRAINT "FK_SCHEDULE-ITEMS-GROUPS_01"`);
         await queryRunner.query(`ALTER TABLE "schedule-items" DROP CONSTRAINT "FK_SCHEDULE-ITEMS-COACH_01"`);
         await queryRunner.query(`ALTER TABLE "schedule-items" DROP CONSTRAINT "FK_SCHEDULE-ITEMS-ATHLETE_01"`);
-        await queryRunner.query(`ALTER TABLE "trainings" DROP CONSTRAINT "FK_TRAININGS-COACHES_01"`);
+        await queryRunner.query(`ALTER TABLE "users-attendances" DROP CONSTRAINT "FK_USERS-ATTENDANCES-COACHES_01"`);
+        await queryRunner.query(`ALTER TABLE "users-attendances" DROP CONSTRAINT "FK_USERS-ATTENDANCES-ATHLETES_01"`);
         await queryRunner.query(`ALTER TABLE "training-packages" DROP CONSTRAINT "FK_TRAINING_PACKAGES-ATHLETES_01"`);
         await queryRunner.query(`ALTER TABLE "training-packages" DROP CONSTRAINT "FK_TRAINING_PACKAGES-GYM_SUBSCRIPTIONS_01"`);
         await queryRunner.query(`DROP TYPE "public"."system_role_enum"`);
@@ -196,7 +199,7 @@ export class InitialMigration1656597955289 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "groups"`);
         await queryRunner.query(`DROP TABLE "notifications"`);
         await queryRunner.query(`DROP TABLE "schedule-items"`);
-        await queryRunner.query(`DROP TABLE "trainings"`);
+        await queryRunner.query(`DROP TABLE "users-attendances"`);
         await queryRunner.query(`DROP TABLE "training-packages"`);
     }
 }

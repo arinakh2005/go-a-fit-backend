@@ -1,6 +1,6 @@
-import { Entity, JoinColumn, ManyToMany, OneToMany, OneToOne } from 'typeorm';
+import { Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { TrainingPackage } from './training-package.entity';
-import { Training } from './training.entity';
+import { UserAttendance } from './user-attendance.entity';
 import { BaseEntity } from './base.entity';
 import { User } from './user.entity';
 import { ScheduleItem } from './schedule-item.entity';
@@ -21,6 +21,6 @@ export class Athlete extends BaseEntity {
   @OneToMany(() => AthleteGroup, (athleteGroup) => athleteGroup.athlete)
   public athleteGroups: AthleteGroup[];
 
-  @ManyToMany(() => Training, (training) => training.attendantAthletes)
-  public attendantTrainings: Training[];
+  @OneToMany(() => UserAttendance, (training) => training.athlete)
+  public attendantTrainings: UserAttendance[];
 }

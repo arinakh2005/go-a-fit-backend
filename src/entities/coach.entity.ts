@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
-import { Training } from './training.entity';
+import { UserAttendance } from './user-attendance.entity';
 import { Group } from './group.entity';
 import { BaseEntity } from './base.entity';
 import { User } from './user.entity';
@@ -29,6 +29,6 @@ export class Coach extends BaseEntity {
   @OneToMany(() => Group, (group) => group.coach)
   public groups: Group[];
 
-  @OneToMany(() => Training, (training) => training.conductedCoach)
-  public conductedTrainings: Training[];
+  @OneToMany(() => UserAttendance, (training) => training.conductedCoach)
+  public conductedTrainings: UserAttendance[];
 }

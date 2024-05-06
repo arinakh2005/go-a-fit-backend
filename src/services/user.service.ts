@@ -19,7 +19,12 @@ export class UserService extends BaseService {
   }
 
   public async findAll(): Promise<User[]> {
-    return await this.unitOfWork.userRepository.find();
+    const users = await this.unitOfWork.userRepository.find();
+
+    return users.map((user) => {
+      delete user.password;
+      return user;
+    });
   }
 
   public async findByUsername(username: string): Promise<User> {

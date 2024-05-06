@@ -16,7 +16,9 @@ export class ScheduleItemService extends BaseService {
   }
 
   public async findAll(): Promise<ScheduleItem[]> {
-    return await this.unitOfWork.scheduleItemRepository.find({ relations: { group: true }});
+    return await this.unitOfWork.scheduleItemRepository.find({
+      relations: { group: true, coach: true, athlete: true },
+    });
   }
 
   public async create(scheduleItem: ScheduleItemUpsertDto): Promise<ScheduleItem> {

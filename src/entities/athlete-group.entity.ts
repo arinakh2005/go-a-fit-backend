@@ -9,7 +9,7 @@ export class AthleteGroup extends BaseEntity {
   @JoinColumn({ name: 'athlete_id' })
   public athlete: Athlete;
 
-  @ManyToOne(() => Group, (group) => group.athleteGroups)
+  @ManyToOne(() => Group, (group) => group.athletes)
   @JoinColumn({ name: 'group_id' })
   public group: Group;
 }

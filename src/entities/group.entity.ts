@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Coach } from './coach.entity';
-import { Training } from './training.entity';
+import { UserAttendance } from './user-attendance.entity';
 import { ScheduleItem } from './schedule-item.entity';
 import { AthleteGroup } from './athlete-group.entity';
 
@@ -21,11 +21,11 @@ export class Group extends BaseEntity {
   public coach: Coach;
 
   @OneToMany(() => AthleteGroup, (athleteGroup) => athleteGroup.group)
-  public athleteGroups: AthleteGroup[];
+  public athletes: AthleteGroup[];
 
   @OneToMany(() => ScheduleItem, (schedule) => schedule.group)
   public scheduleItems: ScheduleItem[];
 
-  @OneToMany(() => Training, (training) => training.group)
-  public trainings: Training[];
+  @OneToMany(() => UserAttendance, (training) => training.group)
+  public trainings: UserAttendance[];
 }

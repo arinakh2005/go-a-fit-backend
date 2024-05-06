@@ -7,7 +7,7 @@ import { GroupsController } from './controllers/groups.controller';
 import { NotificationsController } from './controllers/notifications.controller';
 import { ScheduleItemsController } from './controllers/schedule-items.controller';
 import { TrainingPackagesController } from './controllers/training-packages.controller';
-import { TrainingsController } from './controllers/trainings.controller';
+import { UsersAttendancesController } from './controllers/users-attendances.controller';
 import { UsersController } from './controllers/users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import config, { GOOGLE_API_FOLDER_ID } from './configs/config';
@@ -19,7 +19,7 @@ import { FitProductRepository } from './repositories/fit-product.repository';
 import { GroupRepository } from './repositories/group.repository';
 import { NotificationRepository } from './repositories/notification.repository';
 import { ScheduleItemRepository } from './repositories/schedule-item.repository';
-import { TrainingRepository } from './repositories/training.repository';
+import { UserAttendanceRepository } from './repositories/user-attendance.repository';
 import { TrainingPackageRepository } from './repositories/training-package.repository';
 import { AthleteService } from './services/athlete.service';
 import { CoachService } from './services/coach.service';
@@ -28,7 +28,7 @@ import { FitProductService } from './services/fit-product.service';
 import { GroupService } from './services/group.service';
 import { NotificationService } from './services/notification.service';
 import { ScheduleItemService } from './services/schedule-item.service';
-import { TrainingService } from './services/training.service';
+import { UserAttendanceService } from './services/user-attendance.service';
 import { TrainingPackageService } from './services/training-package.service';
 import { UnitOfWorkService } from './services/unit-of-work.service';
 import { UserRepository } from './repositories/user.repository';
@@ -55,7 +55,7 @@ const controllers = [
   NotificationsController,
   ScheduleItemsController,
   TrainingPackagesController,
-  TrainingsController,
+  UsersAttendancesController,
   UsersController,
   GymSubscriptionsController,
 ];
@@ -71,7 +71,7 @@ const services = [
   GroupService,
   NotificationService,
   ScheduleItemService,
-  TrainingService,
+  UserAttendanceService,
   TrainingPackageService,
   GymSubscriptionService,
 ];
@@ -86,7 +86,7 @@ const repositories = [
   GroupRepository,
   NotificationRepository,
   ScheduleItemRepository,
-  TrainingRepository,
+  UserAttendanceRepository,
   TrainingPackageRepository,
   GymSubscriptionRepository,
 ];

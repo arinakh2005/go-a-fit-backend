@@ -6,7 +6,7 @@ import { FitOrderRepository } from '../repositories/fit-order.repository';
 import { FitProductRepository } from '../repositories/fit-product.repository';
 import { GroupRepository } from '../repositories/group.repository';
 import { NotificationRepository } from '../repositories/notification.repository';
-import { TrainingRepository } from '../repositories/training.repository';
+import { UserAttendanceRepository } from '../repositories/user-attendance.repository';
 import { TrainingPackageRepository } from '../repositories/training-package.repository';
 import { ScheduleItemRepository } from '../repositories/schedule-item.repository';
 import { UserRepository } from '../repositories/user.repository';
@@ -26,10 +26,10 @@ export class UnitOfWorkService {
         public readonly groupRepository: GroupRepository,
         public readonly scheduleItemRepository: ScheduleItemRepository,
         public readonly notificationRepository: NotificationRepository,
-        public readonly trainingRepository: TrainingRepository,
+        public readonly userAttendanceRepository: UserAttendanceRepository,
         public readonly gymSubscriptionRepository: GymSubscriptionRepository,
         public readonly trainingPackageRepository: TrainingPackageRepository,
-    ) {}
+    ) { }
 
     public async doWork<T>(work: () => T): Promise<T> {
         const queryRunner = this.dataSource.createQueryRunner();
